@@ -1,0 +1,46 @@
+#descripcion {
+
+    text-align: justify;
+
+}
+
+#generos {
+
+    text-align: end;
+
+    color: gray;
+
+    font-style: italic;
+
+}
+
+#comentarioCard {
+
+    width: 100%;
+    padding: 10px;
+
+}
+
+#comentarioHeader p {
+
+    border-bottom: 1px solid rgb(0, 143, 143);
+
+}
+
+#comentarioBody {
+
+    text-align: justify;
+
+}
+
+#addComentarioSeccion {
+
+    margin: 1rem 0;
+
+}
+
+#addComentarioSeccion textarea {
+
+    margin: 0.3rem 0;
+
+}

@@ -1,0 +1,25 @@
+#botonesEntrada {
+  margin-top: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+
+  width: 60%;
+}
+
+#registrarseCard, #iniciarSesionCard {
+  margin-top: 2rem;
+
+  width: 500px;
+}
+
+.card-header {
+  background-color: #008300 !important;
+  color: white;
+}
+/*# sourceMappingURL=registrarse.css.map */

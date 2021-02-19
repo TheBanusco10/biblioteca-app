@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+    <link rel="stylesheet" href="css/index.css">
+    <script src="https://kit.fontawesome.com/04702df722.js" crossorigin="anonymous"></script>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    
+    <script src="src/js/funciones.js"></script>
+    <script src="src/js/index.js"></script>
+
+    <title>Libros</title>
+  </head>
+  <body>
+
+    <div class="container-fluid">
+      <div class="row">
+          <header>
+            <div class="row">
+              <div class="col-2 d-flex justify-content-end">
+                <h1>Anblic</h1>
+              </div>
+              <div class="col-10 d-flex justify-content-end align-items-center">
+                <p id="usuario"></p>
+                <a id="entradaTexto" class="ml-2" href="entrada.html">Iniciar sesión / Registrarse</a>
+              </div>
+            </div>
+          </header>
+        </div>
+    </div>
+
+      <div class="container">
+          <div class="row">
+
+            <div class="col-12 d-flex justify-content-end">
+              <button class="btn btn-success" data-toggle="modal" data-target="#añadirLibro">Añadir libro</button>
+            </div>
+
+            <div class="col-lg-2 col-12 mt-5">
+              
+              <div role="tabpanel d-none d-lg-block" class="position-fixed" id="menu">
+                <div class="list-group" id="myList" role="tablist">
+                  <a class="list-group-item list-group-item-action active" data-toggle="list" href="#librosMenu" role="tab">Nuestros libros</a>
+                  <a class="list-group-item list-group-item-action" data-toggle="list" href="#tusLibrosMenu" role="tab">Tu baúl de libros</a>
+                </div>
+              </div>
+            
+            </div>
+
+            <div class="col-lg-10 col-12" id="seccionLibros">
+              <div class="tab-content">
+                <div class="tab-pane show active" id="librosMenu" role="tabpanel">
+
+                  <div class="col-12 mt-3">
+                    <h1 class="text-center">Nuestro baúl de libros</h1>
+                  </div>
+        
+                  <div class="col-12 text-center">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+
+                  <div class="col-12 mt-3">
+                    <div id="libros"></div>
+                  </div>
+
+                </div>
+                <div class="tab-pane" id="tusLibrosMenu" role="tabpanel">
+
+                  <div class="col-12 mt-3">
+                    <h2 class="text-center">Tus libros</h2>
+                    <div id="alertas">
+                      <div class="alert alert-danger" id="alerta" role="alert">
+                        Tiene una multa por pasarse el plazo para devolver un libro
+                      </div>
+                    </div>
+                    <div class="col-12 text-center" id="spinnerTusLibros">
+                      <div class="spinner-border text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+                    <div id="librosPrestados"></div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <!-- Modal añadir libro -->
+      <div class="modal fade" id="añadirLibro" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Añadir libro</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                  <label for="tituloLibroInput">Título</label>
+                  <input type="text" class="form-control" id="tituloLibroInput">
+                </div>
+                <div class="form-group">
+                  <label for="autorLibroInput">Autor</label>
+                  <input type="text" class="form-control" id="autorLibroInput">
+                </div>
+                <div class="form-group">
+                  <label for="descripcionInput">Descripción</label>
+                  <textarea class="form-control" id="descripcionLibroInput"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="puntuacionLibroInput">Puntuación</label>
+                  <input type="text" class="form-control" id="puntuacionLibroInput">
+                </div>
+                <div class="form-group">
+                  <label for="generoLibroInput">Género</label>
+                  <input type="text" placeholder="Accion|Comedia" class="form-control" id="generoLibroInput">
+                </div>
+                <div class="form-group">
+                  <label for="imagenLibroInput">URL de la imagen</label>
+                  <input type="text" class="form-control" id="imagenLibroInput">
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-primary" id="confirmarAñadirLibro">Añadir libro</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+    <!-- Modal confirmar eliminar libro -->
+    <div class="modal fade" id="confirmarEliminarLibro" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">¿Estás seguro de que desea eliminar el libro?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
+            <button class="btn btn-danger" id="#eliminarLibro">Eliminar libro</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+  </body>
+</html>

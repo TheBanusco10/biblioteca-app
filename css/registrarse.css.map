@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,eAAe,CAAC;EAEZ,UAAU,EAAE,IAAI;EAEhB,OAAO,EAAE,IAAI;EACb,SAAS,EAAE,IAAI;EAEf,eAAe,EAAE,aAAa;CAEjC;;AAED,AAAA,gBAAgB,EAAE,kBAAkB,CAAC;EACjC,UAAU,EAAE,IAAI;CACnB;;AAED,AAAA,YAAY,CAAC;EACT,gBAAgB,EAAE,OAAc,CAAC,UAAU;EAC3C,KAAK,EAAE,KAAK;CACf",
+    "sources": [
+        "registrarse.scss"
+    ],
+    "names": [],
+    "file": "registrarse.css"
+}
