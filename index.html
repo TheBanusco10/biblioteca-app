@@ -24,14 +24,20 @@
 
     <div class="container-fluid">
       <div class="row">
-          <header>
+          <header id="headerAncla">
             <div class="row">
-              <div class="col-2 d-flex justify-content-end">
+              <div class="col-4 col-md-2 d-flex justify-content-end">
                 <h1>Anblic</h1>
               </div>
-              <div class="col-10 d-flex justify-content-end align-items-center">
-                <p id="usuario"></p>
-                <a id="entradaTexto" class="ml-2" href="entrada.html">Iniciar sesión / Registrarse</a>
+              <div class="col-8 col-md-10 d-flex justify-content-end align-items-center">
+                <div class="dropdown">
+                  <button class="btn dropdown-toggle" type="button" id="usuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="usuario">
+                    <button id="cerrarSesion" class="dropdown-item" type="button">Cerrar sesión</button>
+                    <a id="entradaTexto" class="dropdown-item btn" href="entrada.html">Iniciar sesión / Registrarse</a>
+                  </div>
+                </div>
               </div>
             </div>
           </header>
@@ -41,8 +47,10 @@
       <div class="container">
           <div class="row">
 
-            <div class="col-12 d-flex justify-content-end">
-              <button class="btn btn-success" data-toggle="modal" data-target="#añadirLibro">Añadir libro</button>
+            <div class="col-12 d-flex justify-content-center justify-content-md-end" id="headerAcciones">
+              <button class="btn btn-outline-success mr-2" id="añadirLibroBoton" data-toggle="modal" data-target="#añadirLibro">Añadir libro</button>
+              <button class="btn btn-outline-info mr-2" id="añadirUsuarioBoton" data-toggle="modal" data-target="">Añadir usuario</button>
+              <button class="btn btn-outline-danger" id="eliminarUsuarioBoton" data-toggle="modal" data-target="">Eliminar usuario</button>
             </div>
 
             <div class="col-lg-2 col-12 mt-5">
@@ -81,7 +89,6 @@
                     <h2 class="text-center">Tus libros</h2>
                     <div id="alertas">
                       <div class="alert alert-danger" id="alerta" role="alert">
-                        Tiene una multa por pasarse el plazo para devolver un libro
                       </div>
                     </div>
                     <div class="col-12 text-center" id="spinnerTusLibros">
@@ -89,11 +96,18 @@
                         <span class="sr-only">Loading...</span>
                       </div>
                     </div>
-                    <div id="librosPrestados"></div>
+                    <div id="librosPrestados">
+                    </div>
                   </div>
 
                 </div>
               </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 d-flex justify-content-end">
+              <a href="#headerAncla"><i class="fas fa-arrow-up" id="volverArribaIcono"></i></a>
             </div>
           </div>
       </div>
@@ -102,7 +116,7 @@
       <div class="modal fade" id="añadirLibro" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-success">
               <h5 class="modal-title">Añadir libro</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -111,11 +125,11 @@
             <div class="modal-body">
                 <div class="form-group">
                   <label for="tituloLibroInput">Título</label>
-                  <input type="text" class="form-control" id="tituloLibroInput">
+                  <input type="text" placeholder="Don Quijote de la Mancha" class="form-control" id="tituloLibroInput">
                 </div>
                 <div class="form-group">
                   <label for="autorLibroInput">Autor</label>
-                  <input type="text" class="form-control" id="autorLibroInput">
+                  <input type="text" placeholder="Miguel de Cervantes Saavedra" class="form-control" id="autorLibroInput">
                 </div>
                 <div class="form-group">
                   <label for="descripcionInput">Descripción</label>
@@ -127,11 +141,11 @@
                 </div>
                 <div class="form-group">
                   <label for="generoLibroInput">Género</label>
-                  <input type="text" placeholder="Accion|Comedia" class="form-control" id="generoLibroInput">
+                  <input type="text" placeholder="Accion|Comedia|..." class="form-control" id="generoLibroInput">
                 </div>
                 <div class="form-group">
                   <label for="imagenLibroInput">URL de la imagen</label>
-                  <input type="text" class="form-control" id="imagenLibroInput">
+                  <input type="text" placeholder="https://url.com/imagen" class="form-control" id="imagenLibroInput">
                 </div>
             </div>
             <div class="modal-footer">

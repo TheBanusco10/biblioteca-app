@@ -63,9 +63,7 @@ header h1 {
     flex-flow: row;
 
     width: 400px;
-    height: 230px;
-
-    padding: 20px;
+    height: 200px;
 
     box-shadow: 1px 1px 2px 2px rgb(180, 180, 180);
 
@@ -78,14 +76,14 @@ header h1 {
 
 .tarjeta:hover {
 
-    box-shadow: 1px 1px 3px 3px rgb(167, 167, 167);
+    box-shadow: 1px 1px 4px 4px rgb(167, 167, 167);
 
 }
 
 .tarjeta .imagen {
 
-    height: 150px;
-    width: 200px;
+    height: 100%;
+    width: 250px;
 
 }
 
@@ -100,10 +98,14 @@ header h1 {
     width: 100%;
 
     text-align: justify;
+
+    padding: 15px;
 }
 
 
 .tarjeta .titulo {
+
+    height: 50px;
 
     margin: 0 0.3rem;
 
@@ -117,7 +119,7 @@ header h1 {
 
     margin-left: 0.5rem;
 
-    height: 72px;
+    height: 90px;
 
 }
 
@@ -143,6 +145,29 @@ header h1 {
 
     font-size: 17px;
 
+}
+
+#volverArribaIcono {
+
+    position: fixed;
+    top: 80%;
+
+    padding: 10px;
+    font-size: 25px;
+
+    background-color: #00a7b9;
+    border-radius: 50%;
+    color: white;
+
+    cursor: pointer;
+}
+
+textarea {
+    min-height: 90px;
+}
+
+.bg-danger-devolverLibro {
+    background-color: #f8d7da !important;
 }
 
 .fa-eye {
@@ -190,6 +215,16 @@ header h1 {
 
     .tarjeta {
         width: 100%;
+    }
+
+    .tarjeta .descripcion {
+        height: auto;
+    }
+
+    #volverArribaIcono {
+
+        top: 90%;
+        left: 86%;
     }
 
     #menu {
