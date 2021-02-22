@@ -1,5 +1,4 @@
 // TODO Mostrar modal como alerta para las acciones.
-// TODO Si la fecha de un libro se ha pasado, mostrar la fila de color rojo.
 
 const PHP_BASE = '../src/php/';
 
@@ -8,6 +7,8 @@ let idLibro;
 let usuario;
 
 let multaPagada = false;
+
+let libros = [];
 
 if (window.localStorage.usuario) usuario = JSON.parse(window.localStorage.usuario);
 else {
@@ -44,6 +45,10 @@ $(function () {
         cerrarSesion();
     })
     /******************/
+
+    $('#inputBusqueda').keyup(function() {
+        buscarLibro($(this).val());
+    })
     
     $('#libros').on('click', '.botonEliminar', function () {
 
@@ -87,6 +92,10 @@ $(function () {
         multaPagada = true;
         obtenerMulta();
     
+    });
+
+    $('#eliminarUsuarioBoton').click(function () {
+        mostrarUsuarios();
     });
     
 });

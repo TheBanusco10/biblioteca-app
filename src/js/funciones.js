@@ -33,12 +33,12 @@ function obtenerLibros() {
             
             let contenido = '';
 
-            data.message.forEach(({tituloLibro, descripcionLibro, idLibro, imagenLibro}) => {
+            data.message.forEach(({tituloLibro, descripcionLibro, idLibro, imagenLibro, generoLibro, puntuacionLibro, autorLibro}) => {
 
 
                 contenido += `
 
-                    <article class="tarjeta">
+                    <article class="tarjeta" id="${idLibro}" data-genero="${generoLibro}" data-autor="${autorLibro}" data-puntuacion="${puntuacionLibro}">
                     <div class="imagen">
                     <img src="${imagenLibro}" alt="${tituloLibro}">
                     </div>
@@ -66,6 +66,12 @@ function obtenerLibros() {
             });
 
             $('#libros').html(`${contenido}`);
+
+            $('.tarjeta').each(function () {
+
+                guardarLibro($(this));
+
+            });
 
             if (usuario.rol == 'usuario') {
                 $('.botonEliminar').remove();
@@ -130,9 +136,6 @@ function añadirLibro() {
 }
 
 function obtenerLibrosPrestados() {
-
-    console.log('Obteniendo libros');
-    console.log(usuario.id);
 
     if (usuario.id) {
 
@@ -278,7 +281,7 @@ function ponerMulta() {
 
 }
 
-// TODO Formulario de pago para quitar la multa.
+// TODO Formulario de pago para quitar la multa y opción paypal.
 
 /**
  * @description Comprobamos si el usuario tiene una multa
@@ -317,6 +320,173 @@ function obtenerMulta() {
         else
             $('#alertas').hide();
 
+
+    });
+
+}
+
+function guardarLibro(thisObj) {
+
+    let libro = {
+        idLibro: thisObj.attr('id'),
+        tituloLibro: thisObj.find('.titulo').text(),
+        imagenLibro: thisObj.find('img').attr('src'),
+        descripcionLibro: thisObj.find('.descripcion').text(),
+        generoLibro: thisObj.data('genero'),
+        autorLibro: thisObj.data('autor'),
+        puntuacionLibro: thisObj.data('puntuacion')
+
+    }
+
+    libros.push(libro);
+
+}
+
+function buscarLibro(libro) {
+
+    let tipoBusqueda = $('#tipoBusqueda').val();
+
+    let librosResultado = [];
+    
+    let buscar = true;
+
+    switch(tipoBusqueda) {
+
+        case 'Titulo':
+            librosResultado = librosCoincidentes('tituloLibro', libro);
+            break;
+
+        case 'Genero':
+            librosResultado = librosCoincidentes('generoLibro', libro);
+            break;
+
+        case 'Autor':
+            librosResultado = librosCoincidentes('autorLibro', libro);
+            break;
+
+        case 'Puntuacion':
+            librosResultado = librosCoincidentes('puntuacionLibro', libro, true);
+            break;
+
+        default:
+            buscar = false;
+            break;
+    }
+
+    if (buscar) {
+
+        let resultado = librosResultado.map(({tituloLibro, descripcionLibro, idLibro, imagenLibro}) => {
+    
+            return `
+    
+                <article class="tarjeta" id="${idLibro}">
+                <div class="imagen">
+                <img src="${imagenLibro}" alt="${tituloLibro}">
+                </div>
+                <div class="texto">
+                <p class="titulo">${tituloLibro}</p>
+                <p class="descripcion">${acortarTexto(descripcionLibro, 70)}...</p>
+                <p class="acciones">
+                    <a class="btn" href="verLibro.html?id=${idLibro}" title="Ver libro">
+                    <i class="fas fa-eye"></i>
+                </a>
+    
+                <button class="btn botonEliminar" data-toggle="modal" data-id="${idLibro}" data-target="#confirmarEliminarLibro">
+                    <i class="fas fa-trash"></i>
+                </button>
+    
+                <button class="btn botonTomarPrestado" name="${tituloLibro}" data-id="${idLibro}" title="Tomar prestado">
+                    <i class="fas fa-shopping-bag"></i>
+                </button>
+                </p>
+                </div>
+            </article>
+    
+            `;
+    
+        }).join('');
+    
+        $('#libros').html(resultado);
+    }
+    
+
+}
+
+/**
+ * 
+ * @param {String} busqueda tituloLibro, generoLibro, autorLibro, puntuacionLibro
+ * @param {String} libro Valor para buscar
+ * @param {Boolean} puntuacion Si se va a buscar por puntuación
+ * @returns {Array} Libros que coincidan
+ */
+function librosCoincidentes(busqueda, libro, puntuacion = false) {
+
+    // Comprobamos si se busca por puntuación para que no de problemas el toLowerCase()
+    if (puntuacion)
+        return libros.filter(element => element[busqueda] == libro);
+    else
+        return libros.filter(element => element[busqueda].toLowerCase().includes(libro.toLowerCase()));
+
+
+}
+
+function mostrarUsuarios() {
+
+    $.get(`${PHP_BASE}obtenerUsuarios.php`, function(data) {
+
+        if (data.status == 200) {
+
+            let contenido = data.message.map(({emailUsuario, rolUsuario, idUsuario}) => {
+                return `
+                
+                <tr>
+                    <td>${emailUsuario}</td>
+                    <td>${rolUsuario}</td>
+                    <td>
+
+                        <button class="btn" onclick="eliminarUsuario(${idUsuario})">
+                        <i class="fas fa-trash"></i>
+                        </button>
+                    
+                    </td>
+                </tr>
+                
+                `;
+            }).join('');
+
+            $('#usuarios').html(`
+            
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        ${contenido}
+                    </tbody>
+                </table>
+
+            
+            `);
+
+        }
+
+    });
+
+}
+
+function eliminarUsuario(idUsuario) {
+
+    $.post(`${PHP_BASE}eliminarUsuario.php`, {idUsuario: idUsuario}, function(data) {
+
+        if (data.status == 200) {
+            alert(data.message);
+            window.location.reload();
+        }else alert(data.message);
 
     });
 
