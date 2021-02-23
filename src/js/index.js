@@ -7,8 +7,10 @@ let idLibro;
 let usuario;
 
 let multaPagada = false;
+let tieneMulta = false;
 
 let libros = [];
+
 
 if (window.localStorage.usuario) usuario = JSON.parse(window.localStorage.usuario);
 else {
@@ -22,10 +24,10 @@ $(function () {
 
     $('#alertas').hide();
 
-    obtenerLibros();
-    obtenerLibrosPrestados();
-
     administrarMulta();
+    obtenerLibrosPrestados();
+    
+    obtenerLibros();
     obtenerMulta();
 
 
@@ -87,8 +89,8 @@ $(function () {
 
     });
 
-    $('#alertas').on('click', '#pagarMulta', function () {
-
+    $('#realizarCompra').click (function () {
+        
         multaPagada = true;
         obtenerMulta();
     

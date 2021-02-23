@@ -58,6 +58,12 @@ header h1 {
 
 }
 
+.error {
+
+    color: red;
+
+}
+
 .tarjeta {
     display: flex;
     flex-wrap: wrap;
@@ -162,6 +168,46 @@ header h1 {
     color: white;
 
     cursor: pointer;
+}
+
+#smart-button-container {
+
+    width: 100%;
+    
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+}
+
+#paypal-button-container {
+    width: 300px;
+}
+
+.otroPagoContenedor {
+
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    border-top: 1px solid #cbd2d6;
+
+    margin: 2rem;
+
+}
+
+.otroPago {
+
+    position: relative;
+    margin: -1.5rem;
+
+    padding: 10px;
+
+    color: #6c7378;
+    background-color: white;
+
 }
 
 textarea {

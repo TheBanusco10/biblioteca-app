@@ -191,6 +191,8 @@ function obtenerLibrosPrestados() {
             }else {
     
                 $('#librosPrestados').html(`<p>${data.message}.</p>`);
+                $('#pagarMulta').prop('disabled', false);
+
     
             }
     
@@ -246,7 +248,6 @@ function administrarMulta() {
             let libros = data.message;
 
             let actual = new Date();
-            let tieneMulta = false;
 
             // Comprobamos si el usuario se ha pasado de fecha en alguno de los libros.
             libros.forEach(({fechaDevolver}) => {
@@ -258,6 +259,8 @@ function administrarMulta() {
                 }
             });
 
+        }else {
+            $('#pagarMulta').prop('disabled', false);
         }
 
     });
@@ -280,8 +283,6 @@ function ponerMulta() {
     });
 
 }
-
-// TODO Formulario de pago para quitar la multa y opción paypal.
 
 /**
  * @description Comprobamos si el usuario tiene una multa
@@ -311,8 +312,8 @@ function obtenerMulta() {
 
             }else {
                 $('#alertas').show();
-                $('#alerta').html(`Tiene una multa por pasarse el plazo para devolver un libro. Su cuenta queda restringida y no podrá tomar prestados más libros hasta la fecha ${multaHasta} o hasta que no pague 10€. <button class="btn btn-warning" id="pagarMulta">Pagar</button>`);
-            
+                $('#alerta').html(`Tiene una multa por pasarse el plazo para devolver un libro. Su cuenta queda restringida y no podrá tomar prestados más libros hasta la fecha ${multaHasta} o hasta que no pague 10€. <button class="btn btn-warning" data-toggle="modal" data-target="#pagarMultaModal" data-toggle="tooltip" data-placement="right" title="Primero debe devolver todos los libros pasados de fecha" id="pagarMulta">Pagar</button>`);
+                $('#pagarMulta').prop('disabled', true);
                 $('.botonTomarPrestado').remove();
             }
 
