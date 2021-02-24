@@ -63,10 +63,11 @@ function obtenerLibros() {
 
                 `;
 
+                
             });
-
-            $('#libros').html(`${contenido}`);
-
+            
+            $('#libros').html(contenido);
+            
             $('.tarjeta').each(function () {
 
                 guardarLibro($(this));
@@ -89,6 +90,8 @@ function obtenerLibros() {
 
         }
 
+        // Obtenemos estos libros aquí para forzar a que se ejecute justo después de cargar el contenido en el html
+        obtenerLibrosPrestados();
 
     });
 
@@ -208,11 +211,9 @@ function tomarPrestado(idLibro) {
 
     $.get(`${PHP_BASE}prestarLibro.php`, {idUsuario: usuario.id, idLibro: idLibro}, function(data) {
 
-        if (data.status == 200) {
+        if (data.status == 200) window.location.reload()
 
-            window.location.reload();
-
-        }
+        guardarAlerta(data.message);
 
     });
 
@@ -224,12 +225,12 @@ function devolverLibro(idLibro) {
     
         if (data.status == 200) {
         
-            alert(data.message);
-
+            window.location.href = 'index.html#tusLibrosMenu';
             window.location.reload();
-
+            
         }
-
+        
+        guardarAlerta(data.message);
 
     });
 
@@ -312,8 +313,11 @@ function obtenerMulta() {
 
             }else {
                 $('#alertas').show();
-                $('#alerta').html(`Tiene una multa por pasarse el plazo para devolver un libro. Su cuenta queda restringida y no podrá tomar prestados más libros hasta la fecha ${multaHasta} o hasta que no pague 10€. <button class="btn btn-warning" data-toggle="modal" data-target="#pagarMultaModal" data-toggle="tooltip" data-placement="right" title="Primero debe devolver todos los libros pasados de fecha" id="pagarMulta">Pagar</button>`);
-                $('#pagarMulta').prop('disabled', true);
+                $('#alerta').html(`
+                
+                IMPORTANTE: Antes de pagar DEBE DEVOLVER TODOS los libros que estén PASADOS DE FECHA. <br />
+                
+                Tiene una multa por pasarse el plazo para devolver un libro. Su cuenta queda restringida y no podrá tomar prestados más libros hasta la fecha ${multaHasta} o hasta que no pague 10€. <button class="btn btn-warning" data-toggle="modal" data-target="#pagarMultaModal" data-toggle="tooltip" data-placement="right" title="Primero debe devolver todos los libros pasados de fecha" id="pagarMulta">Pagar</button>`);
                 $('.botonTomarPrestado').remove();
             }
 
@@ -424,7 +428,7 @@ function librosCoincidentes(busqueda, libro, puntuacion = false) {
 
     // Comprobamos si se busca por puntuación para que no de problemas el toLowerCase()
     if (puntuacion)
-        return libros.filter(element => element[busqueda] == libro);
+        return libros.filter(element => element[busqueda] >= libro);
     else
         return libros.filter(element => element[busqueda].toLowerCase().includes(libro.toLowerCase()));
 
@@ -490,5 +494,20 @@ function eliminarUsuario(idUsuario) {
         }else alert(data.message);
 
     });
+
+}
+
+function guardarAlerta(mensaje) {
+
+    window.localStorage.setItem('alerta', JSON.stringify({
+        mensaje: mensaje
+    }));
+}
+
+function mostrarAlerta() {
+
+    $('#alertaInicio').find('#alertaTexto').text(alerta.mensaje);
+    $('#alertaInicio').show();
+    window.localStorage.removeItem('alerta');
 
 }

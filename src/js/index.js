@@ -5,6 +5,7 @@ const PHP_BASE = '../src/php/';
 let idLibro;
 
 let usuario;
+let alerta;
 
 let multaPagada = false;
 let tieneMulta = false;
@@ -20,12 +21,19 @@ else {
     }));
 }
 
+if (window.localStorage.alerta) alerta = JSON.parse(window.localStorage.alerta);
+
 $(function () {
+
+    if (alerta) {
+        mostrarAlerta();
+    }else {
+        $('#alertaInicio').hide();
+    }
 
     $('#alertas').hide();
 
     administrarMulta();
-    obtenerLibrosPrestados();
     
     obtenerLibros();
     obtenerMulta();
@@ -48,7 +56,28 @@ $(function () {
     })
     /******************/
 
+    $('#tipoBusqueda').change(function () {
+        switch($(this).val()) {
+
+            case 'Genero':
+                $('#inputBusqueda').attr('placeholder', 'Drama|Misterio|...');
+                break;
+            case 'Autor':
+            $('#inputBusqueda').attr('placeholder', 'David Jiménez');
+            break;
+            case 'Puntuacion':
+                $('#inputBusqueda').attr('placeholder', '0, 1, 2 ... 10');
+                break;
+
+            default:
+                $('#inputBusqueda').attr('placeholder', 'Palabras ordenadas...');
+                break;
+
+        }
+    });
+
     $('#inputBusqueda').keyup(function() {
+
         buscarLibro($(this).val());
     })
     
