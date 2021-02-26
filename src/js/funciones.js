@@ -50,7 +50,7 @@ function obtenerLibros() {
                         <i class="fas fa-eye"></i>
                     </a>
     
-                    <button class="btn botonEliminar" data-toggle="modal" data-id="${idLibro}" data-target="#confirmarEliminarLibro">
+                    <button class="btn botonEliminar" title="Eliminar libro" data-toggle="modal" data-id="${idLibro}" data-target="#confirmarEliminarLibro">
                         <i class="fas fa-trash"></i>
                     </button>
     
@@ -102,8 +102,12 @@ function eliminarLibro(id) {
     $.get(`${PHP_BASE}eliminarLibro.php`, {idLibro: id}, function(data) {
 
 
-        if (data.status == 200) window.location.reload();
-        else alert('Error al borrar');
+        if (data.status == 200) {
+
+            guardarAlerta(data.message);
+
+            window.location.reload();
+        }
 
 
     });
@@ -126,7 +130,9 @@ function añadirLibro() {
 
         if (data.status === 200) {
 
-            alert('Libro añadido correctamente');
+            
+            guardarAlerta(data.message);
+
             window.location.reload();
 
         }
@@ -277,6 +283,7 @@ function ponerMulta() {
 
         if (data.status == 200) {
 
+            guardarAlerta('Usted tiene una multa por no devolver un libro');
             window.location.reload();
 
         }
@@ -489,9 +496,9 @@ function eliminarUsuario(idUsuario) {
     $.post(`${PHP_BASE}eliminarUsuario.php`, {idUsuario: idUsuario}, function(data) {
 
         if (data.status == 200) {
-            alert(data.message);
+            guardarAlerta(data.message);
             window.location.reload();
-        }else alert(data.message);
+        }
 
     });
 

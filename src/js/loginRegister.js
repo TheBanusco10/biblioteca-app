@@ -72,18 +72,18 @@ $(function () {
 
     })
     
-    // $('#botonRegistrarse').click(function (e) {
+    $('#botonRegistrarse').click(function (e) {
     
-    //     e.preventDefault();
+        e.preventDefault();
     
-    //     $.post('../src/php/nuevoUsuario.php', $('#formularioRegistro').serialize())
-    //         .done(function (data) {
+        $.post('../src/php/nuevoUsuario.php', $('#formularioRegistro').serialize())
+            .done(function (data) {
 
-    //             alert(res.message.emailUsuario);
+                alert(res.message.emailUsuario);
 
-    //         })
+            })
 
-    // })
+    })
 
 
 

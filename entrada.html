@@ -17,92 +17,133 @@
 
     <script src="src/js/loginRegister.js"></script>
 
-    <title>Registrarse</title>
+    <title>Anblic - Principal</title>
   </head>
   <body>
-      <div class="container">
-          <div class="row justify-content-center">
-              <div id="botonesEntrada">
-                <button class="btn btn-secondary" id="enlaceRegistrarse">Registrarse</button>
-                <button class="btn btn-success" id="enlaceIniciarSesion">Iniciar sesión</button>
-                <button class="btn btn-primary" id="enlaceInvitado">Entrar como Invitado</button>
-              </div>
-              <div class="col-12 d-flex justify-content-center">
-                <div class="card" id="registrarseCard">
-                    <div class="card-header">
-                      Registrarse
-                    </div>
-                    <div class="card-body">
-                      <p class="card-text">
-                        <form class="needs-validation" novalidate id="formularioRegistro" method="POST">
-                            <div class="form-group">
-                            <label for="exampleInputEmail1">Correo electrónico</label>
-                            <i class="fas fa-question-circle" data-toggle="tooltip" data-placement="right" title="Tu correo electrónico solo será visible para otros usuarios cuando añadas un comentario a un libro."></i>
-                            <input placeholder="ejemplo@ejemplo.es" required type="email" name="email" class="form-control" id="email">
-                            <div class="valid-feedback">
-                              Correcto.
-                            </div>
-                            <div class="invalid-feedback">
-                              Introduzca un email válido.
-                            </div>
-                            </div>
-                            <div class="form-group">
-                            <label for="exampleInputPassword1">Contraseña</label>
-                            <input type="password" class="form-control" required name="password" id="password">
-                            </div>
-                            <div class="valid-feedback">
-                              Correcto.
-                            </div>
-                            <div class="invalid-feedback">
-                              Introduzca una contraseña válida.
-                            </div>
-                            <button type="submit" class="btn btn-primary mt-3" id="botonRegistrarse">Registrarse</button>
-                        </form>
-                      </p>
-                    </div>
-                  </div>
 
-                  <div class="card" id="iniciarSesionCard">
-                    <div class="card-header">
-                      Iniciar sesión
-                    </div>
-                    <div class="card-body">
-                      <div class="alert alert-danger alert-dismissible fade show" id="error" role="alert">
-                        <span id="errorTexto"></span>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <p class="card-text">
-                        <form class="needs-validation" novalidate id="formularioIniciarSesion" method="POST">
-                            <div class="form-group">
-                            <label for="exampleInputEmail1">Correo electrónico</label>
-                            <input placeholder="ejemplo@ejemplo.es" required type="email" name="email" class="form-control" id="email">
-                            </div>
-                            <div class="valid-feedback">
-                              Correcto.
-                            </div>
-                            <div class="invalid-feedback">
-                              Introduzca un email válido.
-                            </div>
-                            <div class="form-group">
-                            <label for="exampleInputPassword1">Contraseña</label>
-                            <input type="password" required class="form-control" name="password" id="password">
-                            </div>
-                            <div class="valid-feedback">
-                              Correcto.
-                            </div>
-                            <div class="invalid-feedback">
-                              Introduzca una contraseña.
-                            </div>
-                            <button type="submit" class="btn btn-primary" id="botonIniciarSesion">Iniciar sesión</button>
-                        </form>
-                      </p>
-                    </div>
-                  </div>
+    <div class="container-fluid">
+      <div class="row">
+          <header>
+              <div class="col-6">
+                <h1 class="text-center">Anblic</h1>
               </div>
-          </div>
+              <div class="col-6">
+                <div id="acciones" class="text-center">
+                  <a href="#iniciarSesionCard" class="btn-more" id="enlaceIniciarSesion">Iniciar sesión</a>
+                  <a href="#registrarseCard" class="btn-more" id="enlaceRegistrarse">Registrarse</a>
+                </div>
+              </div>
+          </header>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a href="#iniciarSesionCard" class="btn-more nav-link" id="enlaceIniciarSesion">Iniciar sesión</a>
+          </li>
+          <li class="nav-item">
+            <a href="#registrarseCard" class="btn-more nav-link" id="enlaceRegistrarse">Registrarse</a>
+          </li>
       </div>
+    </nav>
+
+    <section id="banner">
+      <div id="contenidoBanner">
+        <h2>Tu biblioteca virtual</h2>
+        <p>Todos los libros en tan solo un click</p>
+        <button class="btn-more" id="enlaceInvitado">Pruébalo ahora</button>
+      </div>
+    </section>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div id="botonesEntrada">
+              
+              
+            </div>
+            <div class="col-12 d-flex justify-content-center">
+              <div class="card" id="registrarseCard">
+                  <div class="card-header">
+                    Registrarse
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                      <form class="needs-validation" novalidate id="formularioRegistro" method="POST">
+                          <div class="form-group">
+                          <label for="exampleInputEmail1">Correo electrónico</label>
+                          <i class="fas fa-question-circle" data-toggle="tooltip" data-placement="right" title="Tu correo electrónico solo será visible para otros usuarios cuando añadas un comentario a un libro."></i>
+                          <input placeholder="ejemplo@ejemplo.es" required type="email" name="email" class="form-control" id="email">
+                          <div class="valid-feedback">
+                            Correcto.
+                          </div>
+                          <div class="invalid-feedback">
+                            Introduzca un email válido.
+                          </div>
+                          </div>
+                          <div class="form-group">
+                          <label for="exampleInputPassword1">Contraseña</label>
+                          <input type="password" class="form-control" required name="password" id="password">
+                          </div>
+                          <div class="valid-feedback">
+                            Correcto.
+                          </div>
+                          <div class="invalid-feedback">
+                            Introduzca una contraseña válida.
+                          </div>
+                          <button type="submit" class="btn btn-primary mt-3" id="botonRegistrarse">Registrarse</button>
+                      </form>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="card" id="iniciarSesionCard">
+                  <div class="card-header">
+                    Iniciar sesión
+                  </div>
+                  <div class="card-body">
+                    <div class="alert alert-danger alert-dismissible fade show" id="error" role="alert">
+                      <span id="errorTexto"></span>
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <p class="card-text">
+                      <form class="needs-validation" novalidate id="formularioIniciarSesion" method="POST">
+                          <div class="form-group">
+                          <label for="exampleInputEmail1">Correo electrónico</label>
+                          <input placeholder="ejemplo@ejemplo.es" required type="email" name="email" class="form-control" id="email">
+                          </div>
+                          <div class="valid-feedback">
+                            Correcto.
+                          </div>
+                          <div class="invalid-feedback">
+                            Introduzca un email válido.
+                          </div>
+                          <div class="form-group">
+                          <label for="exampleInputPassword1">Contraseña</label>
+                          <input type="password" required class="form-control" name="password" id="password">
+                          </div>
+                          <div class="valid-feedback">
+                            Correcto.
+                          </div>
+                          <div class="invalid-feedback">
+                            Introduzca una contraseña.
+                          </div>
+                          <button type="submit" class="btn btn-primary" id="botonIniciarSesion">Iniciar sesión</button>
+                      </form>
+                    </p>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
 

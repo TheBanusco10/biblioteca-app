@@ -32,10 +32,10 @@ if (!empty($tituloLibro) && !empty($autorLibro) && !empty($descripcionLibro) && 
     ));
 
     if ($stm->rowCount() > 0) {
-        echo devolverMensaje('Libro añadido correctamente', 200);
+        echo devolverMensaje('Libro añadido correctamente.', 200);
 
     }else {
-        echo devolverMensaje('Error al añadior el libro', 500);
+        echo devolverMensaje('Error al añadior el libro.', 500);
     }
 
 }else {
