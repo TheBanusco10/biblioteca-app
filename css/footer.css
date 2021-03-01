@@ -1,0 +1,18 @@
+footer {
+
+    background-color: rgb(41, 41, 41);
+
+    color: white;
+
+    text-align: center;
+
+    height: 90px;
+    padding: 10px;
+    margin-top: 1rem;
+
+    display: flex !important;
+    flex-wrap: wrap;
+
+    align-items: center;
+
+}

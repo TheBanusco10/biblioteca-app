@@ -6,8 +6,7 @@ function getDiasRestantes(fecha) {
     let Difference_In_Time = fecha.getTime() - actual.getTime(); 
     
     // To calculate the no. of days between two dates 
-    return Math.ceil(Difference_In_Time / (1000 * 3600 * 24)); 
-
+    return Math.ceil(Difference_In_Time / (1000 * 3600 * 24));
 }
 
 function cerrarSesion() {
@@ -37,10 +36,13 @@ function obtenerLibros() {
 
 
                 contenido += `
-
+                
                     <article class="tarjeta" id="${idLibro}" data-genero="${generoLibro}" data-autor="${autorLibro}" data-puntuacion="${puntuacionLibro}">
                     <div class="imagen">
                     <img src="${imagenLibro}" alt="${tituloLibro}">
+                    <div class="puntuacionLibro">
+                        <p>${puntuacionLibro}</p>
+                    </div>
                     </div>
                     <div class="texto">
                     <p class="titulo">${tituloLibro}</p>
