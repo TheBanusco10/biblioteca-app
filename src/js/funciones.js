@@ -1,3 +1,5 @@
+const PHP_BASE = '../src/php/';
+
 function getDiasRestantes(fecha) {
 
     let actual = new Date();  
@@ -310,11 +312,14 @@ function obtenerMulta() {
             let fechaActual = new Date();
             let fechaMulta = new Date(multaHasta);
 
+            // TODO Comprobar fecha en el servidor en vez de en el cliente
+
             if (fechaActual >= fechaMulta || multaPagada) {
 
                 $.get(`${PHP_BASE}quitarMulta.php`, {idUsuario: usuario.id}, function(data) {
 
                     if (data.status == 200) {
+                        guardarAlerta(data.message);
                         window.location.reload();
                     }
 
@@ -506,6 +511,20 @@ function eliminarUsuario(idUsuario) {
 
 }
 
+function añadirUsuario() {
+
+    let tipo = $('label.active > input').attr('id');
+
+    $.post(`${PHP_BASE}nuevoUsuario.php`, {email: $('#emailInput').val(), password: $('#contraseñaInput').val(), tipo: tipo}, function(data) {
+
+
+        guardarAlerta(data.message);
+        window.location.reload();
+
+    });
+
+}
+
 function guardarAlerta(mensaje) {
 
     window.localStorage.setItem('alerta', JSON.stringify({
@@ -518,5 +537,11 @@ function mostrarAlerta() {
     $('#alertaInicio').find('#alertaTexto').text(alerta.mensaje);
     $('#alertaInicio').show();
     window.localStorage.removeItem('alerta');
+
+}
+
+function comprobarAlerta() {
+
+    if (window.localStorage.alerta) return JSON.parse(window.localStorage.alerta);
 
 }

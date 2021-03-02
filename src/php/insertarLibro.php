@@ -35,7 +35,7 @@ if (!empty($tituloLibro) && !empty($autorLibro) && !empty($descripcionLibro) && 
         echo devolverMensaje('Libro añadido correctamente.', 200);
 
     }else {
-        echo devolverMensaje('Error al añadior el libro.', 500);
+        echo devolverMensaje('Error al añadir el libro.', 500);
     }
 
 }else {

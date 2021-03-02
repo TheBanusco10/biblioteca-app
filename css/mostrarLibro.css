@@ -4,6 +4,25 @@
 
 }
 
+#imagen {
+
+    margin-top: 3rem;
+
+    text-align: center;
+
+
+}
+
+#recomendaciones img {
+    width: 150px;
+}
+
+#imagen img {
+
+    width: 250px;
+
+}
+
 #generos {
 
     text-align: end;

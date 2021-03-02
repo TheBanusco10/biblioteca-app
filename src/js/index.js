@@ -1,11 +1,7 @@
-// TODO Mostrar modal como alerta para las acciones.
-
-const PHP_BASE = '../src/php/';
-
 let idLibro;
 
 let usuario;
-let alerta;
+let alerta = comprobarAlerta();
 
 let multaPagada = false;
 let tieneMulta = false;
@@ -20,8 +16,6 @@ else {
         rol: 'usuario'
     }));
 }
-
-if (window.localStorage.alerta) alerta = JSON.parse(window.localStorage.alerta);
 
 $(function () {
 
@@ -115,6 +109,12 @@ $(function () {
     $('#confirmarAñadirLibro').click(function () {
 
         añadirLibro();
+
+    });
+
+    $('#confirmarAñadirUsuario').click(function () {
+
+        añadirUsuario();
 
     });
 

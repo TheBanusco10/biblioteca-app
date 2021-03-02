@@ -50,12 +50,54 @@ $(function () {
             
             $('title').text(`${data.message.tituloLibro}`);
 
+            $('#imagen').html(`
+
+                <div id="imagenContenedor">
+                    <img src="${data.message.imagenLibro}" alt="${data.message.tituloLibro}">
+                </div>
+            
+            `);
+
+            $('#genero').html(`
+            
+                <p id="generos">${data.message.generoLibro}</p>
+            
+            `);
+
+            librosRecomendados(data.message.generoLibro, function(recomendaciones) {
+
+                recomendaciones.message = recomendaciones.message.filter(element => element.idLibro != id);
+                let resultado;
+
+                if (recomendaciones.message.length == 0) resultado = 'No hay libros recomendados';
+                else resultado = recomendaciones.message.map(({imagenLibro, tituloLibro, idLibro}) => {
+                    return `
+
+                    <article>
+                        <div class="contenedorImagen text-center">
+                            <img src="${imagenLibro}" alt="${tituloLibro}">
+                        </div>
+                        <p class="text-center mt-2"><a href="verLibro.html?id=${idLibro}">${tituloLibro}</a></p>
+                    </article>
+
+                    `;
+                }).join('');
+
+                $('#recomendaciones').html(`
+
+
+                    <h4 class="text-center mb-4">Otros libros que podrían gustarte</h4>
+                    
+                    ${resultado}
+                
+                `);
+            });
+
             $('#informacion').html(`
 
                 <h1 class="text-center">${data.message.tituloLibro}</h1>
                 <h4>${data.message.autorLibro}</h4>
                 <p id="descripcion">${data.message.descripcionLibro}</p>
-                <p id="generos">${data.message.generoLibro}</p>
 
             
             `);
@@ -109,5 +151,19 @@ function insertarComentario (idUsuario, idLibro, comentario) {
         else alert('Error');
 
     });
+
+}
+
+function librosRecomendados(generos, callback) {
+
+    let genero = generos.split('|');
+
+    console.log(genero);
+
+    genero = genero[Math.floor(Math.random() * genero.length)];
+
+    console.log(genero);
+
+    $.post(`${PHP_BASE}librosRecomendados.php`, {genero: genero}, callback);
 
 }

@@ -1,4 +1,12 @@
+let alerta = comprobarAlerta();
+
 $(function () {
+
+    if (alerta) {
+        mostrarAlerta();
+    }else {
+        $('#alertaInicio').hide();
+    }
 
     var forms = document.getElementsByClassName('needs-validation');
     // Loop over them and prevent submission
@@ -79,7 +87,10 @@ $(function () {
         $.post('../src/php/nuevoUsuario.php', $('#formularioRegistro').serialize())
             .done(function (data) {
 
-                alert(res.message.emailUsuario);
+                if (data.status === 200) {
+                    guardarAlerta(data.message);
+                    window.location.reload();
+                }
 
             })
 

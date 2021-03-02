@@ -50,7 +50,7 @@
 
             <div class="col-12 d-flex justify-content-center justify-content-md-end" id="headerAcciones">
               <button class="btn btn-outline-success mr-2" id="añadirLibroBoton" data-toggle="modal" data-target="#añadirLibro">Añadir libro</button>
-              <button class="btn btn-outline-info mr-2" id="añadirUsuarioBoton" data-toggle="modal" data-target="">Añadir usuario</button>
+              <button class="btn btn-outline-info mr-2" id="añadirUsuarioBoton" data-toggle="modal" data-target="#añadirUsuario">Añadir usuario</button>
               <button class="btn btn-outline-danger" id="eliminarUsuarioBoton" data-toggle="modal" data-target="#eliminarUsuarios">Eliminar usuario</button>
             </div>
 
@@ -176,6 +176,44 @@
           </div>
         </div>
       </div>
+
+    <!-- Modal añadir usuario -->
+    <div class="modal fade" id="añadirUsuario" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-success">
+            <h5 class="modal-title">Añadir usuario</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="emailInput">Correo electrónico</label>
+              <input type="email" placeholder="test@test.com" class="form-control" id="emailInput" required>
+            </div>
+            <div class="form-group">
+              <label for="contraseñaInput">Contraseña</label>
+              <input type="password" class="form-control" id="contraseñaInput" required>
+            </div>
+            <div class="form-group">
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-outline-primary">
+                    <input type="radio" name="options" id="usuario" value="usuario">Usuario
+                </label>
+                <label class="btn btn-outline-primary">
+                    <input type="radio" name="options" id="bibliotecario">Bibliotecario
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="confirmarAñadirUsuario">Añadir usuario</button>
+          </div>
+        </div>
+      </div>
+    </div>
       
 
     <!-- Modal confirmar eliminar libro -->

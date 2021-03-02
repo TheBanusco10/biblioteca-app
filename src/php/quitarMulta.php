@@ -11,7 +11,7 @@ $idUsuario = htmlspecialchars($_GET['idUsuario']) ?? '';
 
 if (!empty($idUsuario)) {
 
-    $stm = $pdo->prepare("UPDATE Usuarios SET multaUsuario = 0 WHERE idUsuario = :idUsuario");
+    $stm = $pdo->prepare("UPDATE Usuarios SET multaUsuario = 0, multaHasta = NULL WHERE idUsuario = :idUsuario");
 
     $stm->execute(array(
 
@@ -20,7 +20,7 @@ if (!empty($idUsuario)) {
     ));
 
     if ($stm->rowCount() > 0) {
-        echo devolverMensaje('Multa quitada', 200);
+        echo devolverMensaje('Multa quitada correctamente', 200);
 
     }
     else

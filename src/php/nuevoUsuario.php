@@ -8,16 +8,18 @@ require_once ('db.php');
 
 $email = htmlspecialchars($_POST['email']) ?? '';
 $password = htmlspecialchars($_POST['password']) ?? '';
+$tipo = htmlspecialchars($_POST['tipo']) ?? 'usuario';
 
 
 if (!empty($email) && !empty($password)) {
 
-    $stm = $pdo->prepare('INSERT INTO Usuarios VALUES (NULL, :email, :passwordUser, "usuario", 0)');
+    $stm = $pdo->prepare('INSERT INTO Usuarios VALUES (NULL, :email, :passwordUser, :tipo, 0, NULL)');
 
     $stm->execute(array(
 
         ':email' => $email,
-        ':passwordUser' => $password
+        ':passwordUser' => $password,
+        ':tipo' => $tipo
 
     ));
 
