@@ -64,87 +64,21 @@ $(function () {
             
             `);
 
-            librosRecomendados(data.message.generoLibro, function(recomendaciones) {
+            librosRecomendados(data.message.generoLibro, data.message.autorLibro, function(recomendaciones) {
 
-                recomendaciones.message = recomendaciones.message.filter(element => element.idLibro != id);
-                let resultado;
-                let articulos;
-
-                // <article>
-                //         <div class="contenedorImagen text-center">
-                //             <img src="${imagenLibro}" alt="${tituloLibro}">
-                //         </div>
-                //         <p class="text-center mt-2"><a href="verLibro.html?id=${idLibro}">${tituloLibro}</a></p>
-                //     </article>
-
-                if (recomendaciones.message.length == 0) resultado = 'No hay libros recomendados.';
-                else {
-
-                    resultado = `
-                    
-                    <div id="carouselRecomendaciones" class="carousel slide carousel-fade" data-ride="carousel">
-                        <div class="carousel-inner">
-                        
-                    `;
-
-                    console.log(resultado);
-                    
-                    articulos = recomendaciones.message.map(({imagenLibro, tituloLibro, idLibro}, index) => {
-
-                    if (index == 0)
-                    
-                        return `
-
-                        <div class="carousel-item active">
-                            <img src="${imagenLibro}" class="d-block w-100" alt="${tituloLibro}"">
-                                <div class="carousel-caption d-none d-md-block">
-                                <p class="text-center mt-2"><a href="verLibro.html?id=${idLibro}">${tituloLibro}</a></p>
-                            </div>
-                        </div>
-
-                        `;
-
-                    else
-
-                        return `
-
-                            <div class="carousel-item">
-                                <img src="${imagenLibro}" class="d-block w-100" alt="${tituloLibro}"">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    <p class="text-center mt-2"><a href="verLibro.html?id=${idLibro}">${tituloLibro}</a></p>
-                                </div>
-                            </div>
-
-                        `;
-                    }).join('');
-
-
-                    resultado += `
-
-                        ${articulos}
-
-                        </div>
-
-                            <a class="carousel-control-prev" href="#carouselRecomendaciones" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselRecomendaciones" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                            </a>
-                        </div>
-                    
-                    `;
-
-                }
+                let generos = crearCarousel(recomendaciones.message.genero, id, 'genero');
+                let autor = crearCarousel(recomendaciones.message.autor, id, 'autor');
                     
                 $('#recomendaciones').html(`
                 
                 
-                    <h4 class="text-center mb-4">Otros libros que podrían gustarte</h4>
+                    <h4 class="text-center mb-4">Géneros similares</h4>
                     
-                    ${resultado}
+                    ${generos}
+
+                    <h4 class="text-center mt-4 mb-4">Mismo autor</h4>
+                    
+                    ${autor}
 
                 
                 `);
@@ -211,7 +145,85 @@ function insertarComentario (idUsuario, idLibro, comentario) {
 
 }
 
-function librosRecomendados(generos, callback) {
+/**
+ * 
+ * @param {Array} array Array con la información a filtrar
+ * @param {Integer} id ID del libro actual para evitar que se repita en el carousel
+ * @param {String} tipo String para distinguir a los carousel entre sí. Ej: 'género', 'autor'...
+ * @returns {String} Devuelve el string correspondiente al carousel con la información necesaria
+ */
+function crearCarousel(array, id, tipo) {
+
+
+    let datos = array.filter(element => element.idLibro != id);
+    let resultado;
+    let articulos;
+
+    if (datos == 0) resultado = 'No hay libros recomendados.';
+    else {
+
+        resultado = `
+        
+        <div id="carouselRecomendaciones${tipo}" class="carousel slide carousel-fade" data-ride="carousel">
+            <div class="carousel-inner">
+            
+        `;
+        
+        articulos = datos.map(({imagenLibro, tituloLibro, idLibro}, index) => {
+
+        if (index == 0)
+        
+            return `
+
+            <div class="carousel-item active">
+                <img src="${imagenLibro}" class="d-block w-100" alt="${tituloLibro}"">
+                    <div class="carousel-caption d-none d-md-block">
+                    <p class="text-center mt-2"><a href="verLibro.html?id=${idLibro}">${tituloLibro}</a></p>
+                </div>
+            </div>
+
+            `;
+
+        else
+
+            return `
+
+                <div class="carousel-item">
+                    <img src="${imagenLibro}" class="d-block w-100" alt="${tituloLibro}"">
+                        <div class="carousel-caption d-none d-md-block">
+                        <p class="text-center mt-2"><a href="verLibro.html?id=${idLibro}">${tituloLibro}</a></p>
+                    </div>
+                </div>
+
+            `;
+        }).join('');
+
+
+        resultado += `
+
+            ${articulos}
+
+            </div>
+
+                <a class="carousel-control-prev" href="#carouselRecomendaciones${tipo}" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselRecomendaciones${tipo}" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+                </a>
+            </div>
+        
+        `;
+
+    }
+
+    return resultado;
+
+}
+
+function librosRecomendados(generos, autor, callback) {
 
     let genero = generos.split('|');
 
@@ -221,6 +233,6 @@ function librosRecomendados(generos, callback) {
 
     console.log(genero);
 
-    $.post(`${PHP_BASE}librosRecomendados.php`, {genero: genero}, callback);
+    $.post(`${PHP_BASE}librosRecomendados.php`, {genero: genero, autor: autor}, callback);
 
 }

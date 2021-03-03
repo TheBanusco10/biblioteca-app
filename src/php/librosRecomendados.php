@@ -7,22 +7,35 @@ require ('funciones.php');
 require_once ('db.php');
 
 $genero = htmlspecialchars($_POST['genero']) ?? '';
+$autor = htmlspecialchars($_POST['autor']) ?? '';
 
+if (!empty($genero) && !empty($autor)) {
 
+    $libros = [];
 
-if (!empty($genero)) {
-
-    $stm = $pdo->prepare('SELECT * FROM Libros WHERE generoLibro LIKE :genero LIMIT 3');
+    $stm = $pdo->prepare('SELECT * FROM Libros WHERE generoLibro LIKE :genero');
 
     $stm->execute(array(
 
         ':genero' => "%$genero%"
 
+    ));
+
+    $libros['genero'] = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+    $stm = $pdo->prepare('SELECT * FROM Libros WHERE autorLibro = :autor');
+
+    $stm->execute(array(
+
+        ':autor' => $autor
 
     ));
 
+    $libros['autor'] = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+
     if ($stm->rowCount() > 0) {
-        echo devolverMensaje($stm->fetchAll(PDO::FETCH_ASSOC), 200);
+        echo devolverMensaje($libros, 200);
 
     }else {
         echo devolverMensaje('No hay libros con género parecido.', 500);

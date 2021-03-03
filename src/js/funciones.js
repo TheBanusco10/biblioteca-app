@@ -34,8 +34,23 @@ function obtenerLibros() {
             
             let contenido = '';
 
-            data.message.forEach(({tituloLibro, descripcionLibro, idLibro, imagenLibro, generoLibro, puntuacionLibro, autorLibro}) => {
+            data.message.forEach(({tituloLibro, descripcionLibro, idLibro, imagenLibro, generoLibro, puntuacionLibro, autorLibro, stockLibro}) => {
 
+                let botonTomarPrestado = stockLibro > 0 ? `
+                
+                <button class="btn botonTomarPrestado" name="${tituloLibro}" data-id="${idLibro}" title="Tomar prestado">
+                    <i class="fas fa-shopping-bag"></i>
+                </button>
+                
+                
+                `
+                :
+                `
+                <button class="btn botonListaDeseados" name="${tituloLibro}" data-id="${idLibro}" title="Añadir a tu lista de deseos">
+                    <i class="far fa-star"></i>
+                </button>
+
+                `;
 
                 contenido += `
                 
@@ -58,9 +73,7 @@ function obtenerLibros() {
                         <i class="fas fa-trash"></i>
                     </button>
     
-                    <button class="btn botonTomarPrestado" name="${tituloLibro}" data-id="${idLibro}" title="Tomar prestado">
-                        <i class="fas fa-shopping-bag"></i>
-                    </button>
+                    ${botonTomarPrestado}
                     </p>
                     </div>
                 </article>
@@ -96,6 +109,7 @@ function obtenerLibros() {
 
         // Obtenemos estos libros aquí para forzar a que se ejecute justo después de cargar el contenido en el html
         obtenerLibrosPrestados();
+        obtenerListaDeseados();
 
     });
 
@@ -341,6 +355,73 @@ function obtenerMulta() {
 
 
     });
+
+}
+
+function añadirListaDeseados(idLibro) {
+
+    $.post(`${PHP_BASE}nuevoDeseo.php`, {idLibro: idLibro, idUsuario: usuario.id}, function(data) {
+
+        guardarAlerta(data.message);
+        window.location.reload();
+
+    });
+
+}
+
+function obtenerListaDeseados() {
+
+    if (usuario.id) {
+
+        $.get(`${PHP_BASE}obtenerDeseados.php`, {idUsuario: usuario.id}, function(data) {
+    
+    
+            if (data.status === 200) {
+    
+                let tabla = `
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Título</th>
+                                <th scope="col">Autor</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                    <tbody>
+                `;
+    
+                data.message.forEach(element => {
+    
+                    tabla += `<tr>
+                        <td><a href="../verLibro.html?id=${element.idLibro}" >${element.tituloLibro}</a></td>
+                        <td>${element.autorLibro}</td>
+                        <td>
+                            
+                        </td>
+                        
+                        `;
+    
+                    // Si el usuario tiene ya el libro en su lista, no le saldrá la opción de nuevo
+                    $('.botonListaDeseados').each(function () {
+    
+                        if ($(this).attr('name') == element.tituloLibro) $(this).remove();
+    
+                    })
+    
+                });
+    
+                tabla += `</tbody>
+                </table>`;
+    
+                $('#librosDeseados').html(tabla);
+    
+            }
+    
+    
+        });
+    
+    }else $('#librosPrestados').html(`<p>Inicia sesión para empezar a añadir libros a tu biblioteca.</p>`);
+
 
 }
 

@@ -86,9 +86,15 @@ $(function () {
 
         idLibro = $(this).data('id');
 
-        console.log('Tomando prestado');
-
         tomarPrestado(idLibro);
+
+    });
+
+    $('#libros').on('click', '.botonListaDeseados', function() {
+
+        idLibro = $(this).data('id');
+        
+        añadirListaDeseados(idLibro, usuario.id);
 
     });
 

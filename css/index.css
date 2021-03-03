@@ -255,6 +255,18 @@ textarea {
 
 }
 
+.fa-star {
+
+    color: orangered;
+
+}
+
+.fa-star:hover {
+
+    color: rgb(172, 46, 0);
+
+}
+
 @media (min-width: 1200px) {
 
     .tarjeta {

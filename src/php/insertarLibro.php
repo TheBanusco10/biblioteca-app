@@ -17,7 +17,7 @@ $imagenLibro = htmlspecialchars($_POST['imagenLibro']) ?? '';
 
 if (!empty($tituloLibro) && !empty($autorLibro) && !empty($descripcionLibro) && !empty($puntuacionLibro) && !empty($generoLibro) && !empty($imagenLibro)) {
 
-    $stm = $pdo->prepare('INSERT INTO Libros VALUES (NULL, :titulo, :autor, :descripcion, :puntuacion, :genero, :imagen)');
+    $stm = $pdo->prepare('INSERT INTO Libros VALUES (NULL, :titulo, :autor, :descripcion, :puntuacion, :genero, :imagen, DEFAULT)');
 
     $stm->execute(array(
 
