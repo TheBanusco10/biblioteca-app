@@ -13,8 +13,30 @@
 
 }
 
+#recomendaciones {
+    margin-bottom: 3rem;
+}
+
 #recomendaciones img {
     width: 150px;
+}
+
+#recomendaciones a {
+
+    color: white;
+
+    text-transform: uppercase;
+
+}
+
+#carouselRecomendaciones p {
+
+    padding: 10px;
+
+    background-color: #515151;
+
+    border-radius: 3px;
+
 }
 
 #imagen img {

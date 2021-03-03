@@ -68,27 +68,84 @@ $(function () {
 
                 recomendaciones.message = recomendaciones.message.filter(element => element.idLibro != id);
                 let resultado;
+                let articulos;
 
-                if (recomendaciones.message.length == 0) resultado = 'No hay libros recomendados';
-                else resultado = recomendaciones.message.map(({imagenLibro, tituloLibro, idLibro}) => {
-                    return `
+                // <article>
+                //         <div class="contenedorImagen text-center">
+                //             <img src="${imagenLibro}" alt="${tituloLibro}">
+                //         </div>
+                //         <p class="text-center mt-2"><a href="verLibro.html?id=${idLibro}">${tituloLibro}</a></p>
+                //     </article>
 
-                    <article>
-                        <div class="contenedorImagen text-center">
-                            <img src="${imagenLibro}" alt="${tituloLibro}">
-                        </div>
-                        <p class="text-center mt-2"><a href="verLibro.html?id=${idLibro}">${tituloLibro}</a></p>
-                    </article>
+                if (recomendaciones.message.length == 0) resultado = 'No hay libros recomendados.';
+                else {
 
+                    resultado = `
+                    
+                    <div id="carouselRecomendaciones" class="carousel slide carousel-fade" data-ride="carousel">
+                        <div class="carousel-inner">
+                        
                     `;
-                }).join('');
 
+                    console.log(resultado);
+                    
+                    articulos = recomendaciones.message.map(({imagenLibro, tituloLibro, idLibro}, index) => {
+
+                    if (index == 0)
+                    
+                        return `
+
+                        <div class="carousel-item active">
+                            <img src="${imagenLibro}" class="d-block w-100" alt="${tituloLibro}"">
+                                <div class="carousel-caption d-none d-md-block">
+                                <p class="text-center mt-2"><a href="verLibro.html?id=${idLibro}">${tituloLibro}</a></p>
+                            </div>
+                        </div>
+
+                        `;
+
+                    else
+
+                        return `
+
+                            <div class="carousel-item">
+                                <img src="${imagenLibro}" class="d-block w-100" alt="${tituloLibro}"">
+                                    <div class="carousel-caption d-none d-md-block">
+                                    <p class="text-center mt-2"><a href="verLibro.html?id=${idLibro}">${tituloLibro}</a></p>
+                                </div>
+                            </div>
+
+                        `;
+                    }).join('');
+
+
+                    resultado += `
+
+                        ${articulos}
+
+                        </div>
+
+                            <a class="carousel-control-prev" href="#carouselRecomendaciones" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselRecomendaciones" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    
+                    `;
+
+                }
+                    
                 $('#recomendaciones').html(`
-
-
+                
+                
                     <h4 class="text-center mb-4">Otros libros que podrían gustarte</h4>
                     
                     ${resultado}
+
                 
                 `);
             });
