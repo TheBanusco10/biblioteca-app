@@ -52,15 +52,20 @@ ENGINE = InnoDB;
 -- Table `biblioteca`.`Libros_prestados`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `biblioteca`.`Libros_prestados` (
-  `idLibro` INT NOT NULL AUTO_INCREMENT,
-  `tituloLibro` VARCHAR(70) NULL,
-  `autorLibro` VARCHAR(150) NULL,
-  `descripcionLibro` MEDIUMTEXT NULL,
-  `puntuacionLibro` INT NULL,
-  `generoLibro` VARCHAR(45) NULL,
-  `imagenLibro` VARCHAR(300) NULL,
-  `stockLibro` INT NULL DEFAULT 64,
-  PRIMARY KEY (`idLibro`))
+  `idUsuario` INT NOT NULL,
+  `idLibro` INT NOT NULL,
+  `fechaDevolver` DATE NULL,
+  INDEX `fk_Libros_prestados_Libros_idx` (`idLibro` ASC),
+  CONSTRAINT `fk_Libros_prestados_Usuarios`
+    FOREIGN KEY (`idUsuario`)
+    REFERENCES `biblioteca`.`Usuarios` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Libros_prestados_Libros`
+    FOREIGN KEY (`idLibro`)
+    REFERENCES `biblioteca`.`Libros` (`idLibro`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 

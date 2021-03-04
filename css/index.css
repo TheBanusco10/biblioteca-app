@@ -267,6 +267,12 @@ textarea {
 
 }
 
+.enLista {
+
+    color: orangered;
+
+}
+
 @media (min-width: 1200px) {
 
     .tarjeta {

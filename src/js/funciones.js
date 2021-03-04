@@ -396,7 +396,11 @@ function obtenerListaDeseados() {
                         <td><a href="../verLibro.html?id=${element.idLibro}" >${element.tituloLibro}</a></td>
                         <td>${element.autorLibro}</td>
                         <td>
+                            <button class="btn botonQuitarListaDeseados" data-id="${element.idLibro}">
                             
+                                <i class="far fa-window-close"></i>
+
+                            </button>
                         </td>
                         
                         `;
@@ -404,7 +408,15 @@ function obtenerListaDeseados() {
                     // Si el usuario tiene ya el libro en su lista, no le saldrá la opción de nuevo
                     $('.botonListaDeseados').each(function () {
     
-                        if ($(this).attr('name') == element.tituloLibro) $(this).remove();
+                        if ($(this).attr('name') == element.tituloLibro) {
+
+                            $(this).removeClass('botonListaDeseados');
+                            $(this).addClass('enLista');
+                            $(this).attr('title', 'Ya está en tu lista de deseados');
+
+                            $(this).html('<i class="fas fa-star"></i>');
+
+                        }
     
                     })
     
@@ -414,13 +426,31 @@ function obtenerListaDeseados() {
                 </table>`;
     
                 $('#librosDeseados').html(tabla);
+
+                let librosDisponibles = data.message.filter(element => element.stockLibro > 0);
+                let alerta = '';
+                librosDisponibles.forEach(element => {
+
+                    alerta += `${element.tituloLibro}`;
+
+                });
+
+                if (librosDisponibles.length != 0) {
+                    guardarAlerta(`Los siguientes libros están disponibles: ${alerta}`);
+                    // window.location.reload();
+                }
     
+            }else {
+                $('#librosDeseados').text(data.message);
             }
     
     
         });
     
-    }else $('#librosPrestados').html(`<p>Inicia sesión para empezar a añadir libros a tu biblioteca.</p>`);
+    }else {
+        $('.botonListaDeseados').remove();
+        $('#librosDeseados').html(`<p>Inicia sesión para empezar a añadir libros a tu lista de deseados.</p>`);
+    } 
 
 
 }
@@ -507,6 +537,8 @@ function buscarLibro(libro) {
         }).join('');
     
         $('#libros').html(resultado);
+
+        quitarBotones();
     }
     
 
@@ -606,6 +638,17 @@ function añadirUsuario() {
 
 }
 
+function quitarLibroDeseado(idLibro) {
+
+    $.get(`${PHP_BASE}eliminarDeseo.php`, {idLibro: idLibro}, function(data) {
+
+        guardarAlerta(data.message);
+        window.location.reload();
+        
+    })
+
+}
+
 function guardarAlerta(mensaje) {
 
     window.localStorage.setItem('alerta', JSON.stringify({
@@ -624,5 +667,24 @@ function mostrarAlerta() {
 function comprobarAlerta() {
 
     if (window.localStorage.alerta) return JSON.parse(window.localStorage.alerta);
+
+}
+
+function quitarBotones() {
+
+    if (usuario.id) {
+
+        if (usuario.rol != 'bibliotecario') {
+            console.log('Quitando');
+            $('.botonEliminar').remove();
+
+        }
+
+    }else {
+        $('.botonListaDeseados').remove();
+        $('.botonEliminar').remove();
+        $('.botonTomarPrestado').remove();
+
+    }
 
 }

@@ -98,6 +98,18 @@ $(function () {
 
     });
 
+    $('#librosDeseados').on('click', '.botonQuitarListaDeseados', function() {
+
+        idLibro = $(this).data('id');
+
+        console.log('click');
+        
+        quitarLibroDeseado(idLibro);
+
+    });
+
+    
+
     $('#librosPrestados').on('click', '.botonDevolverLibro', function() {
 
         idLibro = $(this).data('id');

@@ -10,7 +10,7 @@ $idUsuario = htmlspecialchars($_GET['idUsuario']) ?? '';
 
 if (!empty($idUsuario)) {
 
-    $stm = $pdo->prepare('SELECT tituloLibro, autorLibro FROM Lista_deseados INNER JOIN Libros ON Libros.idLibro = Lista_deseados.idLibro WHERE idUsuario = :idUsuario');
+    $stm = $pdo->prepare('SELECT tituloLibro, autorLibro, Libros.idLibro, stockLibro FROM Lista_deseados INNER JOIN Libros ON Libros.idLibro = Lista_deseados.idLibro WHERE idUsuario = :idUsuario');
 
     $stm->execute(array(
 

@@ -19,6 +19,9 @@
 
 #recomendaciones img {
     width: 150px;
+
+    height: 330px;
+
 }
 
 #recomendaciones a {
@@ -42,6 +45,7 @@
 #imagen img {
 
     width: 250px;
+
 
 }
 
