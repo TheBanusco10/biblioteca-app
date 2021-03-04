@@ -32,7 +32,6 @@ $(function () {
     obtenerLibros();
     obtenerMulta();
 
-
     // Cambiamos las acciones del header según el usuario y comprobamos el comportamiento.
     $('#usuario').text(usuario.email);
 
@@ -69,6 +68,13 @@ $(function () {
 
         }
     });
+
+    // Cuando termina la animación activamos el focus del input de búsqueda
+    setTimeout(() => {
+
+        $('#inputBusqueda').focus();
+
+    }, 2000);
 
     $('#inputBusqueda').keyup(function() {
 

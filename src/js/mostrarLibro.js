@@ -48,7 +48,7 @@ $(function () {
         
         $.get('../src/php/obtenerLibro.php', {id: id}, function(data) {
             
-            $('title').text(`${data.message.tituloLibro}`);
+            $('title').text(`${data.message.tituloLibro} - Anblac`);
 
             $('#imagen').html(`
 

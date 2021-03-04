@@ -36,6 +36,7 @@ function obtenerLibros() {
 
             data.message.forEach(({tituloLibro, descripcionLibro, idLibro, imagenLibro, generoLibro, puntuacionLibro, autorLibro, stockLibro}) => {
 
+                console.log(stockLibro);
                 let botonTomarPrestado = stockLibro > 0 ? `
                 
                 <button class="btn botonTomarPrestado" name="${tituloLibro}" data-id="${idLibro}" title="Tomar prestado">
@@ -84,12 +85,6 @@ function obtenerLibros() {
             });
             
             $('#libros').html(contenido);
-            
-            $('.tarjeta').each(function () {
-
-                guardarLibro($(this));
-
-            });
 
             if (usuario.rol == 'usuario') {
                 $('.botonEliminar').remove();
@@ -107,9 +102,16 @@ function obtenerLibros() {
 
         }
 
+        if(!usuario.id) {
+            $('.tarjeta').each(function() {
+                guardarLibro($(this), $(this).find('.acciones')[0].outerHTML);
+            });
+        }
+
         // Obtenemos estos libros aquí para forzar a que se ejecute justo después de cargar el contenido en el html
         obtenerLibrosPrestados();
         obtenerListaDeseados();
+        
 
     });
 
@@ -437,8 +439,12 @@ function obtenerListaDeseados() {
 
                 if (librosDisponibles.length != 0) {
                     guardarAlerta(`Los siguientes libros están disponibles: ${alerta}`);
-                    // window.location.reload();
                 }
+
+                $('.tarjeta').each(function () {
+                    guardarLibro($(this), $(this).find('.acciones')[0].outerHTML);
+        
+                });
     
             }else {
                 $('#librosDeseados').text(data.message);
@@ -455,7 +461,12 @@ function obtenerListaDeseados() {
 
 }
 
-function guardarLibro(thisObj) {
+/**
+ * 
+ * @param {*} thisObj 
+ * @param {String} acciones Párrafo con las acciones de cada tarjeta
+ */
+function guardarLibro(thisObj, acciones) {
 
     let libro = {
         idLibro: thisObj.attr('id'),
@@ -464,7 +475,8 @@ function guardarLibro(thisObj) {
         descripcionLibro: thisObj.find('.descripcion').text(),
         generoLibro: thisObj.data('genero'),
         autorLibro: thisObj.data('autor'),
-        puntuacionLibro: thisObj.data('puntuacion')
+        puntuacionLibro: thisObj.data('puntuacion'),
+        acciones: acciones
 
     }
 
@@ -505,7 +517,7 @@ function buscarLibro(libro) {
 
     if (buscar) {
 
-        let resultado = librosResultado.map(({tituloLibro, descripcionLibro, idLibro, imagenLibro}) => {
+        let resultado = librosResultado.map(({tituloLibro, descripcionLibro, idLibro, imagenLibro, acciones}) => {
     
             return `
     
@@ -516,20 +528,7 @@ function buscarLibro(libro) {
                 <div class="texto">
                 <p class="titulo">${tituloLibro}</p>
                 <p class="descripcion">${acortarTexto(descripcionLibro, 70)}...</p>
-                <p class="acciones">
-                    <a class="btn" href="verLibro.html?id=${idLibro}" title="Ver libro">
-                    <i class="fas fa-eye"></i>
-                </a>
-    
-                <button class="btn botonEliminar" data-toggle="modal" data-id="${idLibro}" data-target="#confirmarEliminarLibro">
-                    <i class="fas fa-trash"></i>
-                </button>
-    
-                <button class="btn botonTomarPrestado" name="${tituloLibro}" data-id="${idLibro}" title="Tomar prestado">
-                    <i class="fas fa-shopping-bag"></i>
-                </button>
-                </p>
-                </div>
+                ${acciones}
             </article>
     
             `;
