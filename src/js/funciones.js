@@ -29,8 +29,6 @@ function obtenerLibros() {
     $.get(`${PHP_BASE}obtenerLibros.php`, function(data) {
         
         if (data.status === 200) {
-
-
             
             let contenido = '';
 
@@ -215,6 +213,9 @@ function obtenerLibrosPrestados() {
                 </table>`;
     
                 $('#librosPrestados').html(tabla);
+
+                $('#tusLibrosBadge').text(data.message.length);
+
     
             }else {
     
@@ -398,10 +399,10 @@ function obtenerListaDeseados() {
     
                 data.message.forEach(element => {
     
-                    tabla += `<tr>
-                        <td><a href="../verLibro.html?id=${element.idLibro}" >${element.tituloLibro}</a></td>
+                    tabla += `<tr class="deseadosFila">
+                        <td><a href="../verLibro.html?id=${element.idLibro}" name="${element.tituloLibro}">${element.tituloLibro}</a></td>
                         <td>${element.autorLibro}</td>
-                        <td>
+                        <td class="accionesDeseados">
                             <button class="btn botonQuitarListaDeseados" data-id="${element.idLibro}">
                             
                                 <i class="far fa-window-close"></i>
@@ -433,10 +434,23 @@ function obtenerListaDeseados() {
     
                 $('#librosDeseados').html(tabla);
 
+                $('#listaDeseadosBadge').text(data.message.length);
+
                 let librosDisponibles = data.message.filter(element => element.stockLibro > 0);
                 let alerta = '';
                 librosDisponibles.forEach(element => {
+                    
+                    $('.deseadosFila').each(function () {
 
+                        if ($(this).find('a').attr('name') == element.tituloLibro) {
+                            $(this).find('.accionesDeseados').append(`
+                                <button class="btn botonTomarPrestado" name="${element.tituloLibro}" data-id="${element.idLibro}" title="Tomar prestado">
+                                    <i class="fas fa-shopping-bag"></i>
+                                </button>
+                            `);
+                    
+                        }
+                    })
                     alerta += `<p>${element.tituloLibro}</p>`;
 
                 });
@@ -444,6 +458,7 @@ function obtenerListaDeseados() {
                 if (librosDisponibles.length != 0) {
                     guardarAlerta(`Los siguientes libros están disponibles: ${alerta}`);
                 }
+
 
                 
             }else {
@@ -454,6 +469,11 @@ function obtenerListaDeseados() {
                 guardarLibro($(this), $(this).find('.acciones')[0].outerHTML);
     
             });
+
+            let alerta = comprobarAlerta();
+            if (alerta) {
+                mostrarAlerta(alerta);
+            }
     
         });
     
@@ -659,9 +679,9 @@ function guardarAlerta(mensaje) {
     }));
 }
 
-function mostrarAlerta() {
+function mostrarAlerta(alerta) {
 
-    $('#alertaInicio').find('#alertaTexto').html(alerta.mensaje);
+    $('#alertaInicio').find('#alertaTexto').append(alerta.mensaje);
     $('#alertaInicio').show();
     window.localStorage.removeItem('alerta');
 

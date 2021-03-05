@@ -8,7 +8,14 @@ $(function () {
     if (parametros.has('id')) {
 
         let id = parametros.get('id');
-        let usuario = JSON.parse(window.localStorage.usuario);
+        let usuario;
+        if (window.localStorage.usuario) usuario = JSON.parse(window.localStorage.usuario);
+        else {
+            window.localStorage.setItem('usuario', JSON.stringify(usuario = {
+                email: 'Invitado',
+                rol: 'usuario'
+            }));
+        }
 
 
         // Comprobamos si es un Invitado o no para poder añadir comentarios

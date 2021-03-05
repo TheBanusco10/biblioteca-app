@@ -1,7 +1,5 @@
 let idLibro;
-
 let usuario;
-let alerta = comprobarAlerta();
 
 let multaPagada = false;
 let tieneMulta = false;
@@ -19,12 +17,9 @@ else {
 
 $(function () {
 
-    if (alerta) {
-        mostrarAlerta();
-    }else {
-        
-        $('#alertaInicio').hide();
-    }
+    
+
+    $('#alertaInicio').hide();
 
     $('#alertas').hide();
 
@@ -34,7 +29,7 @@ $(function () {
     obtenerMulta();
 
     // Cambiamos las acciones del header según el usuario y comprobamos el comportamiento.
-    $('#usuario').text(usuario.email);
+    $('#usuario').text('Bienvenido/a, ' + usuario.email);
 
     if (usuario.email == 'Invitado') {
 
@@ -89,7 +84,7 @@ $(function () {
         
     });
 
-    $('#libros').on('click', '.botonTomarPrestado', function() {
+    $(document).on('click', '.botonTomarPrestado', function() {
 
         idLibro = $(this).data('id');
 
