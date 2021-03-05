@@ -8,6 +8,11 @@ $(function () {
         $('#alertaInicio').hide();
     }
 
+    $(window).on('scroll', function (e) {
+        animar('mejoresLibros', 'animacionMejoresLibros');
+        animar('registro', 'animacionLogin');
+    });
+
     var forms = document.getElementsByClassName('needs-validation');
     // Loop over them and prevent submission
     var validation = Array.prototype.filter.call(forms, function(form) {
@@ -99,3 +104,11 @@ $(function () {
 
 
 })
+
+function animar(contenedor, animacion) {
+    console.log('Animando');
+    let top = $(window).scrollTop() + $(window).height();
+    isVisible = top > $(`#${contenedor}`).offset().top;
+
+    $(`#${contenedor}`).toggleClass(`${animacion}`, isVisible);
+}

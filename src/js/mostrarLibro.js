@@ -177,7 +177,7 @@ function crearCarousel(array, id, tipo) {
 
             <div class="carousel-item active">
                 <img src="${imagenLibro}" class="d-block w-100" alt="${tituloLibro}"">
-                    <div class="carousel-caption d-none d-md-block">
+                    <div class="carousel-caption d-md-block">
                     <p class="text-center mt-2"><a href="verLibro.html?id=${idLibro}">${tituloLibro}</a></p>
                 </div>
             </div>
