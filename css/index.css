@@ -160,6 +160,10 @@
 
 }
 
+.botonQuitarListaDeseados {
+    padding: 0 !important;
+}
+
 #volverArribaIcono {
 
     position: fixed;
@@ -231,13 +235,13 @@ textarea {
     color: rgb(0, 107, 139);
 }
 
-.fa-trash {
+.fa-trash, .fa-window-close {
 
     color: red;
 
 }
 
-.fa-trash:hover {
+.fa-trash:hover, .fa-window-close:hover {
 
     color: rgb(163, 0, 0);
 

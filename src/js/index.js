@@ -22,6 +22,7 @@ $(function () {
     if (alerta) {
         mostrarAlerta();
     }else {
+        
         $('#alertaInicio').hide();
     }
 

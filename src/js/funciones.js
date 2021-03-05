@@ -36,7 +36,6 @@ function obtenerLibros() {
 
             data.message.forEach(({tituloLibro, descripcionLibro, idLibro, imagenLibro, generoLibro, puntuacionLibro, autorLibro, stockLibro}) => {
 
-                console.log(stockLibro);
                 let botonTomarPrestado = stockLibro > 0 ? `
                 
                 <button class="btn botonTomarPrestado" name="${tituloLibro}" data-id="${idLibro}" title="Tomar prestado">
@@ -274,20 +273,22 @@ function administrarMulta() {
 
             let libros = data.message;
 
-            let actual = new Date();
+            $.get(`${PHP_BASE}obtenerFecha.php`, function(data) {
+                
+                let actual = new Date(data);
+    
+                // Comprobamos si el usuario se ha pasado de fecha en alguno de los libros.
+                libros.forEach(({fechaDevolver}) => {
+                    let fechaLibro = new Date(fechaDevolver);
+    
+                    if ( (fechaLibro < actual) && !tieneMulta ) {
+                        ponerMulta();
+                        tieneMulta = true;
+                    }
+                });
+            })
 
-            // Comprobamos si el usuario se ha pasado de fecha en alguno de los libros.
-            libros.forEach(({fechaDevolver}) => {
-                let libro = new Date(fechaDevolver);
 
-                if ( (libro < actual) && !tieneMulta ) {
-                    ponerMulta();
-                    tieneMulta = true;
-                }
-            });
-
-        }else {
-            $('#pagarMulta').prop('disabled', false);
         }
 
     });
@@ -441,15 +442,15 @@ function obtenerListaDeseados() {
                     guardarAlerta(`Los siguientes libros están disponibles: ${alerta}`);
                 }
 
-                $('.tarjeta').each(function () {
-                    guardarLibro($(this), $(this).find('.acciones')[0].outerHTML);
-        
-                });
-    
+                
             }else {
                 $('#librosDeseados').text(data.message);
             }
+            
+            $('.tarjeta').each(function () {
+                guardarLibro($(this), $(this).find('.acciones')[0].outerHTML);
     
+            });
     
         });
     
@@ -660,6 +661,10 @@ function mostrarAlerta() {
     $('#alertaInicio').find('#alertaTexto').text(alerta.mensaje);
     $('#alertaInicio').show();
     window.localStorage.removeItem('alerta');
+
+    setTimeout(function() {
+        $("#alertaInicio").alert('close');
+    }, 5000);
 
 }
 

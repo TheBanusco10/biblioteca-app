@@ -10,6 +10,8 @@ $email = htmlspecialchars($_POST['email']) ?? '';
 $password = htmlspecialchars($_POST['password']) ?? '';
 $tipo = htmlspecialchars($_POST['tipo']) ?? 'usuario';
 
+if (!isset($_POST['tipo'])) $tipo = 'usuario';
+
 
 if (!empty($email) && !empty($password)) {
 
