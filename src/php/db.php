@@ -2,10 +2,11 @@
 
 $user = 'root';
 $password = '';
+$db = 'biblioteca';
 
 try {
 
-    $pdo = new PDO('mysql:host=localhost;dbname=prueba;charset=utf8', $user, $password);
+    $pdo = new PDO("mysql:host=localhost;dbname=$db;charset=utf8", $user, $password);
     
 }catch(PDOException $e) {
 
