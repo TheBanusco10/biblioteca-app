@@ -12,6 +12,10 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+CREATE DATABASE prueba;
+
+use prueba;
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -100,7 +104,7 @@ CREATE TABLE `Libros_prestados` (
 CREATE TABLE `Lista_deseados` (
   `idUsuario` int NOT NULL,
   `idLibro` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+)
 
 -- --------------------------------------------------------
 

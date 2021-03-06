@@ -332,8 +332,6 @@ function obtenerMulta() {
                 let fechaActual = new Date(data);
                 let fechaMulta = new Date(multaHasta);
     
-                // TODO Comprobar fecha en el servidor en vez de en el cliente
-    
                 if (fechaActual >= fechaMulta || multaPagada) {
     
                     $.get(`${PHP_BASE}quitarMulta.php`, {idUsuario: usuario.id}, function(data) {
