@@ -51,8 +51,9 @@ function obtenerLibros() {
                 `;
 
                 contenido += `
-                
-                    <article class="tarjeta" id="${idLibro}" data-genero="${generoLibro}" data-autor="${autorLibro}" data-puntuacion="${puntuacionLibro}">
+
+                <a href="verLibro.html?id=${idLibro}" target="_blank" class="article">
+                <article class="tarjeta" id="${idLibro}" data-genero="${generoLibro}" data-autor="${autorLibro}" data-puntuacion="${puntuacionLibro}">
                     <div class="imagen">
                     <img src="${imagenLibro}" alt="${tituloLibro}">
                     <div class="puntuacionLibro">
@@ -65,7 +66,7 @@ function obtenerLibros() {
                     <p class="acciones">
                         <a class="btn" href="verLibro.html?id=${idLibro}" title="Ver libro">
                         <i class="fas fa-eye"></i>
-                    </a>
+                        </a>
     
                     <button class="btn botonEliminar" title="Eliminar libro" data-toggle="modal" data-id="${idLibro}" data-target="#confirmarEliminarLibro">
                         <i class="fas fa-trash"></i>
@@ -74,7 +75,8 @@ function obtenerLibros() {
                     ${botonTomarPrestado}
                     </p>
                     </div>
-                </article>
+                    </article>
+                    </a>
 
                 `;
 
@@ -539,19 +541,27 @@ function buscarLibro(libro) {
 
     if (buscar) {
 
-        let resultado = librosResultado.map(({tituloLibro, descripcionLibro, idLibro, imagenLibro, acciones}) => {
+        let resultado = librosResultado.map(({tituloLibro, generoLibro, autorLibro, descripcionLibro, idLibro, imagenLibro, acciones, puntuacionLibro}) => {
     
             return `
     
-                <article class="tarjeta" id="${idLibro}">
+            <a href="verLibro.html?id=${idLibro}" target="_blank" class="article">
+            <article class="tarjeta" id="${idLibro}" data-genero="${generoLibro}" data-autor="${autorLibro}" data-puntuacion="${puntuacionLibro}">
                 <div class="imagen">
                 <img src="${imagenLibro}" alt="${tituloLibro}">
+                <div class="puntuacionLibro">
+                    <p>${puntuacionLibro}</p>
+                </div>
                 </div>
                 <div class="texto">
                 <p class="titulo">${tituloLibro}</p>
                 <p class="descripcion">${acortarTexto(descripcionLibro, 70)}...</p>
                 ${acciones}
-            </article>
+                </div>
+                </article>
+                </a>
+
+
     
             `;
     
@@ -636,10 +646,8 @@ function eliminarUsuario(idUsuario) {
 
     $.post(`${PHP_BASE}eliminarUsuario.php`, {idUsuario: idUsuario}, function(data) {
 
-        if (data.status == 200) {
-            guardarAlerta(data.message);
-            window.location.reload();
-        }
+        guardarAlerta(data.message);
+        window.location.reload();
 
     });
 

@@ -3,7 +3,7 @@ let alerta = comprobarAlerta();
 $(function () {
 
     if (alerta) {
-        mostrarAlerta();
+        mostrarAlerta(alerta);
     }else {
         $('#alertaInicio').hide();
     }
@@ -78,8 +78,10 @@ $(function () {
 
                     window.location = '../index.html';
                 }else {
-                    $('#errorTexto').text(data.message);
-                    $('#error').show();
+                    // $('#errorTexto').text(data.message);
+                    // $('#error').show();
+                    guardarAlerta(data.message);
+                    window.location.reload();
                 }
             })
 
@@ -88,6 +90,8 @@ $(function () {
     $('#botonRegistrarse').click(function (e) {
     
         e.preventDefault();
+
+        $('#formularioRegistro').append(`<input type="hidden" name="tipo" value="usuario" />`);
     
         $.post('../src/php/nuevoUsuario.php', $('#formularioRegistro').serialize())
             .done(function (data) {

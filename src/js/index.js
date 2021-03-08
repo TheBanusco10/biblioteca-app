@@ -17,7 +17,7 @@ else {
 
 $(function () {
 
-    
+    $('[data-toggle="tooltip"]').tooltip();
 
     $('#alertaInicio').hide();
 

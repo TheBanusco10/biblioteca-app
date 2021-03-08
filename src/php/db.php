@@ -1,7 +1,7 @@
 <?php
 
 $user = 'root';
-$password = '';
+$password = 'root';
 $db = 'biblioteca';
 
 try {

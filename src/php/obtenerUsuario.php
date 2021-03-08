@@ -26,6 +26,8 @@ if (!empty($email) && !empty($password)) {
 
         if ($usuario['passwordUsuario'] === $password)
             echo devolverMensaje($usuario, 200);
+        else
+            echo devolverMensaje('Usuario no encontrado', 500);
 
     }
     else
