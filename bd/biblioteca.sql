@@ -149,8 +149,47 @@ INSERT INTO `usuarios` (`idUsuario`, `emailUsuario`, `passwordUsuario`, `rolUsua
 (2, 'admin@admin.es', '1234', 'bibliotecario', 0, NULL);
 
 --
+-- Estructura de tabla para la tabla `Puntuaciones`
+--
+
+CREATE TABLE `Puntuaciones` (
+  `idPuntuacion` int(11) NOT NULL,
+  `idUsuario` int(11) NOT NULL,
+  `idLibro` int(11) NOT NULL,
+  `puntuacion` int(11) NOT NULL
+) ;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `Puntuaciones`
+--
+ALTER TABLE `Puntuaciones`
+  ADD PRIMARY KEY (`idPuntuacion`),
+  ADD KEY `fk_idUsuario` (`idUsuario`),
+  ADD KEY `fk_idLibro` (`idLibro`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `Puntuaciones`
+--
+ALTER TABLE `Puntuaciones`
+  MODIFY `idPuntuacion` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `Puntuaciones`
+--
+ALTER TABLE `Puntuaciones`
+  ADD CONSTRAINT `fk_idLibro` FOREIGN KEY (`idLibro`) REFERENCES `Libros` (`idLibro`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `Usuarios` (`idUsuario`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `comentarios`

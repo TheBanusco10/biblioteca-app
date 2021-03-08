@@ -13,6 +13,21 @@
 
 }
 
+#puntuacionSeccion {
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: space-around;
+
+    margin-bottom: 1rem;
+}
+
+#puntuacionSeccion input {
+
+    width: 150px;
+
+}
+
 #recomendaciones {
     margin-bottom: 3rem;
 }
@@ -88,4 +103,30 @@
 
     margin: 0.3rem 0;
 
+}
+
+@media (min-width: 1000px) {
+    #puntuacionSeccion {
+        display: flex;
+        flex-wrap: wrap;
+        
+        justify-content: center;
+    }
+
+    #puntuacionSeccion input {
+        width: 100px;
+    }
+}
+
+@media (min-width: 768px) {
+    #puntuacionSeccion {
+        display: flex;
+        flex-wrap: wrap;
+        
+        justify-content: center;
+    }
+
+    #puntuacionSeccion input {
+        margin-right: 1rem;
+    }
 }

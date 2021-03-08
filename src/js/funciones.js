@@ -668,6 +668,17 @@ function añadirUsuario() {
 
 }
 
+function añadirPuntuacion(idUsuario, idLibro, puntuacion) {
+
+    $.post(`${PHP_BASE}añadirPuntuacion.php`, {idUsuario: idUsuario, idLibro: idLibro, puntuacion: puntuacion}, function(data) {
+
+        guardarAlerta(data.message);
+        window.location = 'index.html';
+
+    });
+
+}
+
 function quitarLibroDeseado(idLibro) {
 
     $.get(`${PHP_BASE}eliminarDeseo.php`, {idLibro: idLibro}, function(data) {

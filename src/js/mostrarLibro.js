@@ -52,7 +52,20 @@ $(function () {
                 $(this).val($(this).val().substr(0, maximoCaracteres));
             
         });
-        
+
+        $('#puntuarLibro').click(function() {
+
+            let puntuacion = $('#puntuacionInput').val();
+
+            if (puntuacion.length != 0) {
+
+                let idLibro = $('h1').data('id');
+                añadirPuntuacion(usuario.id, idLibro, parseInt(puntuacion));
+
+            }
+
+        });
+
         $.get('../src/php/obtenerLibro.php', {id: id}, function(data) {
             
             $('title').text(`${data.message.tituloLibro} - Anblac`);
@@ -93,7 +106,7 @@ $(function () {
 
             $('#informacion').html(`
 
-                <h1 class="text-center">${data.message.tituloLibro}</h1>
+                <h1 class="text-center" data-id="${data.message.idLibro}">${data.message.tituloLibro}</h1>
                 <h4>${data.message.autorLibro}</h4>
                 <p id="descripcion">${data.message.descripcionLibro}</p>
 
