@@ -78,8 +78,6 @@ $(function () {
 
                     window.location = '../index.html';
                 }else {
-                    // $('#errorTexto').text(data.message);
-                    // $('#error').show();
                     guardarAlerta(data.message);
                     window.location.reload();
                 }
@@ -97,8 +95,31 @@ $(function () {
             .done(function (data) {
 
                 if (data.status === 200) {
-                    guardarAlerta(data.message);
-                    window.location.reload();
+
+                    // let email = $('#formularioRegistro').find('#email').val();
+                    // let password = $('#formularioRegistro').find('#password').val();
+
+                    $.post('../src/php/obtenerUsuario.php', $('#formularioRegistro').serialize())
+                        .done(function (data) {
+                            // Redirigir al index y mostrar mensaje de inicio correcto
+                            if (data.status === 200) {
+
+                                window.localStorage.setItem('usuario', JSON.stringify({
+
+                                    id: data.message.idUsuario,
+                                    email: data.message.emailUsuario,
+                                    rol: data.message.rolUsuario
+
+                                }));
+
+                                guardarAlerta('Usuario registrado correctamente');
+
+                                window.location = 'index.html';
+                            }else {
+                                guardarAlerta(data.message);
+                                window.location.reload();
+                            }
+                    })
                 }
 
             })

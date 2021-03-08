@@ -195,7 +195,7 @@ function obtenerLibrosPrestados() {
                         <td><a href="../verLibro.html?id=${element.idLibro}" >${element.tituloLibro}</a></td>
                         <td>${element.fechaDevolver} (${getDiasRestantes(new Date(element.fechaDevolver))} días)</td>
                         <td>
-                            <button class="btn botonDevolverLibro" data-tituloLibro="${element.tituloLibro}" data-id="${element.idLibro}">
+                            <button class="btn botonDevolverLibro" data-tituloLibro="${element.tituloLibro}" data-id="${element.idLibro}" title="Devolver libro">
                                 <i class="fas fa-arrow-circle-right"></i>
                             </button>
                         </td>
