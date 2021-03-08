@@ -12,6 +12,8 @@ Entra en `src > php > db.php` y cambia el contenido de las variables `$user = 'r
 
 Entra en la carpeta del proyecto y ejecuta `php -S localhost:8000` o copia el proyecto en la carpeta de tu servidor.
 
+Si decides copiar el proyecto en alguna otra carpeta, ten en cuenta que la url hacia los archivos php podría cambiar. Puedes personalizar la URL hacia estos archivos en `src > js > funciones.js` `const PHP_BASE = 'url;'`
+
 Disfruta de la biblioteca!
 
 ## Información
