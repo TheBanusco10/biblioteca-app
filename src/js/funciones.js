@@ -34,21 +34,21 @@ function obtenerLibros() {
 
             data.message.forEach(({tituloLibro, descripcionLibro, idLibro, imagenLibro, generoLibro, puntuacionLibro, autorLibro, stockLibro}) => {
 
-                let botonTomarPrestado = stockLibro > 0 ? `
+                // let botonTomarPrestado = stockLibro > 0 ? `
                 
-                <button class="btn botonTomarPrestado" name="${tituloLibro}" data-id="${idLibro}" title="Tomar prestado">
-                    <i class="fas fa-shopping-bag"></i>
-                </button>
+                // <button class="btn botonTomarPrestado" name="${tituloLibro}" data-id="${idLibro}" title="Tomar prestado">
+                //     <i class="fas fa-shopping-bag"></i>
+                // </button>
                 
                 
-                `
-                :
-                `
-                <button class="btn botonListaDeseados" name="${tituloLibro}" data-id="${idLibro}" title="Añadir a tu lista de deseos">
-                    <i class="far fa-star"></i>
-                </button>
+                // `
+                // :
+                // `
+                // <button class="btn botonListaDeseados" name="${tituloLibro}" data-id="${idLibro}" title="Añadir a tu lista de deseos">
+                //     <i class="far fa-star"></i>
+                // </button>
 
-                `;
+                // `;
 
                 contenido += `
 
@@ -72,7 +72,13 @@ function obtenerLibros() {
                         <i class="fas fa-trash"></i>
                     </button>
     
-                    ${botonTomarPrestado}
+                    <button class="btn botonTomarPrestado" name="${tituloLibro}" data-id="${idLibro}" title="Tomar prestado">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
+
+                    <button class="btn botonListaDeseados" name="${tituloLibro}" data-id="${idLibro}" title="Añadir a tu lista de deseos">
+                        <i class="far fa-star"></i>
+                    </button>
                     </p>
                     </div>
                     </article>
@@ -178,7 +184,7 @@ function obtenerLibrosPrestados() {
                             <tr>
                                 <th scope="col">Título</th>
                                 <th scope="col">Devolver antes de</th>
-                                <th scope="col">Acciones</th>
+                                <th scope="col">Devolver libro</th>
                             </tr>
                         </thead>
                     <tbody>
@@ -403,7 +409,7 @@ function obtenerListaDeseados() {
                         <td><a href="../verLibro.html?id=${element.idLibro}" name="${element.tituloLibro}">${element.tituloLibro}</a></td>
                         <td>${element.autorLibro}</td>
                         <td class="accionesDeseados">
-                            <button class="btn botonQuitarListaDeseados" data-id="${element.idLibro}">
+                            <button class="btn botonQuitarListaDeseados" data-id="${element.idLibro}" title="Quitar de la lista de deseados">
                             
                                 <i class="far fa-window-close"></i>
 
