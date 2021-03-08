@@ -152,17 +152,12 @@ function añadirLibro() {
 
     $.post(`${PHP_BASE}insertarLibro.php`, {tituloLibro: titulo, autorLibro: autor, descripcionLibro: descripcion, puntuacionLibro: puntuacion, generoLibro: genero, imagenLibro: imagen}, function(data) {
 
-
-        if (data.status === 200) {
-
-            
-            guardarAlerta(data.message);
-
-            window.location.reload();
-
-        }
-
         $('.btn').prop('disabled', false);
+
+        guardarAlerta(data.message);
+
+        window.location.reload();
+
 
 
     });
