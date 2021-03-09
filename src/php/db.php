@@ -2,7 +2,7 @@
 
 $user = 'root';
 $password = 'root';
-$db = 'prueba';
+$db = 'biblioteca';
 
 try {
 
