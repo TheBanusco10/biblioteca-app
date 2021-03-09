@@ -21,6 +21,7 @@ $(function () {
         // Comprobamos si es un Invitado o no para poder añadir comentarios
         if (usuario.email == 'Invitado') {
             $('#comentariosAcciones').html('<p>Inicia sesión para dejar un comentario</p>');
+            $('#puntuacionSeccion').html('<p>Inicia sesión para puntuar este libro</p>');
         
         }else {
 
@@ -53,14 +54,14 @@ $(function () {
             
         });
 
-        $('#puntuarLibro').click(function() {
+        $('#puntuacionSeccion li').click(function() {
 
-            let puntuacion = $('#puntuacionInput').val();
+            let puntuacion = parseInt($(this).text());
 
-            if (puntuacion.length != 0) {
+            if (puntuacion >= 0 && puntuacion <= 10) {
 
                 let idLibro = $('h1').data('id');
-                añadirPuntuacion(usuario.id, idLibro, parseInt(puntuacion));
+                añadirPuntuacion(usuario.id, idLibro, puntuacion);
 
             }
 

@@ -9,10 +9,6 @@ require_once ('db.php');
 $email = htmlspecialchars($_POST['email']) ?? '';
 $password = htmlspecialchars($_POST['password']) ?? '';
 $tipo = htmlspecialchars($_POST['tipo']) ?? 'usuario';
-// $tipo = '';
-
-// if (!isset($_POST['tipo'])) $tipo = 'usuario';
-// else $tipo = $_POST['tipo'];
 
 
 if (!empty($email) && !empty($password)) {
@@ -28,10 +24,10 @@ if (!empty($email) && !empty($password)) {
     ));
 
     if ($stm->rowCount() > 0) {
-        echo devolverMensaje('Usuario creado correctamente', 200);
+        echo devolverMensaje('Usuario creado correctamente.', 200);
 
     }else {
-        echo devolverMensaje('Error al crear el usuario', 500);
+        echo devolverMensaje('El email escrito ya está en uso. Utilice otro, por favor.', 500);
     }
 
 }else {

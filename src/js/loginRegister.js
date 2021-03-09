@@ -96,9 +96,6 @@ $(function () {
 
                 if (data.status === 200) {
 
-                    // let email = $('#formularioRegistro').find('#email').val();
-                    // let password = $('#formularioRegistro').find('#password').val();
-
                     $.post('../src/php/obtenerUsuario.php', $('#formularioRegistro').serialize())
                         .done(function (data) {
                             // Redirigir al index y mostrar mensaje de inicio correcto
@@ -120,6 +117,9 @@ $(function () {
                                 window.location.reload();
                             }
                     })
+                }else {
+                    guardarAlerta(data.message);
+                    window.location.reload();
                 }
 
             })

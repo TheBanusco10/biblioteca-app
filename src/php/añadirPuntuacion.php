@@ -13,7 +13,7 @@ $puntuacion = htmlspecialchars($_POST['puntuacion']) ?? '';
 
 if (!empty($idLibro) && !empty($idUsuario) && !empty($puntuacion)) {
 
-    $stm = $pdo->prepare('INSERT INTO puntuaciones VALUES (NULL, :idUsuario, :idLibro, :puntuacion)');
+    $stm = $pdo->prepare('INSERT INTO Puntuaciones VALUES (NULL, :idUsuario, :idLibro, :puntuacion)');
 
     $stm->execute(array(
 
@@ -27,7 +27,7 @@ if (!empty($idLibro) && !empty($idUsuario) && !empty($puntuacion)) {
 
     if ($stm->rowCount() > 0) {
 
-        $stm = $pdo->query("SELECT AVG(puntuacion) AS 'Media' FROM `puntuaciones` WHERE idLibro = $idLibro");
+        $stm = $pdo->query("SELECT AVG(puntuacion) AS 'Media' FROM Puntuaciones WHERE idLibro = $idLibro");
 
         $media = (int)$stm->fetch(PDO::FETCH_ASSOC)['Media'];
 
@@ -44,7 +44,7 @@ if (!empty($idLibro) && !empty($idUsuario) && !empty($puntuacion)) {
         if ($stm->rowCount() > 0)
             echo devolverMensaje('Puntuación añadida correctamente.', 200);
         else
-            echo devolverMensaje('Hubo un error al añadir la puntuación.', 500);
+            echo devolverMensaje('Hubo un error al añadir la puntuación 2.', 500);
 
     }else {
         echo devolverMensaje('Hubo un error al añadir la puntuación.', 500);

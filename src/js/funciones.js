@@ -34,25 +34,28 @@ function obtenerLibros() {
 
             data.message.forEach(({tituloLibro, descripcionLibro, idLibro, imagenLibro, generoLibro, puntuacionLibro, autorLibro, stockLibro}) => {
 
-                // let botonTomarPrestado = stockLibro > 0 ? `
+                let botonesDeseadosYPrestado = stockLibro > 0 ? `
                 
-                // <button class="btn botonTomarPrestado" name="${tituloLibro}" data-id="${idLibro}" title="Tomar prestado">
-                //     <i class="fas fa-shopping-bag"></i>
-                // </button>
+                <button class="btn botonTomarPrestado" name="${tituloLibro}" data-id="${idLibro}" title="Tomar prestado">
+                    <i class="fas fa-shopping-bag"></i>
+                </button>
+                <button class="btn botonListaDeseados" name="${tituloLibro}" data-id="${idLibro}" title="Añadir a tu lista de deseos">
+                    <i class="far fa-star"></i>
+                </button>
                 
                 
-                // `
-                // :
-                // `
-                // <button class="btn botonListaDeseados" name="${tituloLibro}" data-id="${idLibro}" title="Añadir a tu lista de deseos">
-                //     <i class="far fa-star"></i>
-                // </button>
+                `
+                :
+                `
+                <button class="btn botonListaDeseados" name="${tituloLibro}" data-id="${idLibro}" title="Añadir a tu lista de deseos">
+                    <i class="far fa-star"></i>
+                </button>
 
-                // `;
+                `;
 
                 contenido += `
 
-                <a href="verLibro.html?id=${idLibro}" target="_blank" class="article">
+                <a href="verLibro.html?id=${idLibro}" class="article">
                 <article class="tarjeta" id="${idLibro}" data-genero="${generoLibro}" data-autor="${autorLibro}" data-puntuacion="${puntuacionLibro}">
                     <div class="imagen">
                     <img src="${imagenLibro}" alt="${tituloLibro}">
@@ -72,13 +75,7 @@ function obtenerLibros() {
                         <i class="fas fa-trash"></i>
                     </button>
     
-                    <button class="btn botonTomarPrestado" name="${tituloLibro}" data-id="${idLibro}" title="Tomar prestado">
-                        <i class="fas fa-shopping-bag"></i>
-                    </button>
-
-                    <button class="btn botonListaDeseados" name="${tituloLibro}" data-id="${idLibro}" title="Añadir a tu lista de deseos">
-                        <i class="far fa-star"></i>
-                    </button>
+                    ${botonesDeseadosYPrestado}
                     </p>
                     </div>
                     </article>
@@ -546,7 +543,7 @@ function buscarLibro(libro) {
     
             return `
     
-            <a href="verLibro.html?id=${idLibro}" target="_blank" class="article">
+            <a href="verLibro.html?id=${idLibro}" class="article">
             <article class="tarjeta" id="${idLibro}" data-genero="${generoLibro}" data-autor="${autorLibro}" data-puntuacion="${puntuacionLibro}">
                 <div class="imagen">
                 <img src="${imagenLibro}" alt="${tituloLibro}">
@@ -669,6 +666,10 @@ function añadirUsuario() {
 }
 
 function añadirPuntuacion(idUsuario, idLibro, puntuacion) {
+
+    console.log('Usuario id', idUsuario);
+    console.log('Libro id', idLibro);
+    console.log('Puntuación', puntuacion);
 
     $.post(`${PHP_BASE}añadirPuntuacion.php`, {idUsuario: idUsuario, idLibro: idLibro, puntuacion: puntuacion}, function(data) {
 
