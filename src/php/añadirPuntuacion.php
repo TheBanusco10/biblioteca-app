@@ -41,10 +41,7 @@ if (!empty($idLibro) && !empty($idUsuario) && !empty($puntuacion)) {
 
         ));
 
-        if ($stm->rowCount() > 0)
-            echo devolverMensaje('Puntuación añadida correctamente.', 200);
-        else
-            echo devolverMensaje('Hubo un error al añadir la puntuación 2.', 500);
+        echo devolverMensaje('Puntuación añadida correctamente.', 200);
 
     }else {
         echo devolverMensaje('Hubo un error al añadir la puntuación.', 500);

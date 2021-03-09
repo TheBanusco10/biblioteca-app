@@ -67,7 +67,7 @@ $(function () {
 
         });
 
-        $.get('../src/php/obtenerLibro.php', {id: id}, function(data) {
+        $.get(`${PHP_BASE}obtenerLibro.php`, {id: id}, function(data) {
             
             $('title').text(`${data.message.tituloLibro} - Anblac`);
 
@@ -116,7 +116,7 @@ $(function () {
 
         })
 
-        $.get('../src/php/obtenerComentarios.php', {id: id}, function(data) {
+        $.get(`${PHP_BASE}obtenerComentarios.php`, {id: id}, function(data) {
 
             if (data.status == 200) {
 
@@ -157,7 +157,7 @@ $(function () {
 
 function insertarComentario (idUsuario, idLibro, comentario) {
 
-    $.get('../src/php/insertarComentario.php', {idUsuario: idUsuario, idLibro: idLibro, comentario: comentario}, function (data) {
+    $.get(`${PHP_BASE}insertarComentario.php`, {idUsuario: idUsuario, idLibro: idLibro, comentario: comentario}, function (data) {
         
         if (data.status == 200) window.location.reload();
         else alert('Error');

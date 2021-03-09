@@ -55,7 +55,7 @@ $(function () {
 
         window.localStorage.removeItem('usuario');
         
-        window.location = '../index.html';
+        window.location = 'index.html';
 
     });
 
@@ -63,7 +63,7 @@ $(function () {
     
         e.preventDefault();
         
-        $.post('../src/php/obtenerUsuario.php', $('#formularioIniciarSesion').serialize())
+        $.post(`${PHP_BASE}obtenerUsuario.php`, $('#formularioIniciarSesion').serialize())
         .done(function (data) {
                 // Redirigir al index y mostrar mensaje de inicio correcto
                 if (data.status === 200) {
@@ -76,7 +76,7 @@ $(function () {
 
                     }));
 
-                    window.location = '../index.html';
+                    window.location = 'index.html';
                 }else {
                     guardarAlerta(data.message);
                     window.location.reload();
@@ -91,12 +91,12 @@ $(function () {
 
         $('#formularioRegistro').append(`<input type="hidden" name="tipo" value="usuario" />`);
     
-        $.post('../src/php/nuevoUsuario.php', $('#formularioRegistro').serialize())
+        $.post(`${PHP_BASE}nuevoUsuario.php`, $('#formularioRegistro').serialize())
             .done(function (data) {
 
                 if (data.status === 200) {
 
-                    $.post('../src/php/obtenerUsuario.php', $('#formularioRegistro').serialize())
+                    $.post(`${PHP_BASE}obtenerUsuario.php`, $('#formularioRegistro').serialize())
                         .done(function (data) {
                             // Redirigir al index y mostrar mensaje de inicio correcto
                             if (data.status === 200) {
